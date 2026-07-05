@@ -55,7 +55,7 @@
     "husky": "^9.1.7",
     "lint-staged": "^17.0.8",
     "playwright": "^1.61.1",
-    "prettier": "^3.9.3",
+    "prettier": "^3.9.4",
     "prettier-plugin-tailwindcss": "^0.8.0",
     "sharp": "^0.35.2",
     "svgo": "^4.0.1",
