@@ -73,7 +73,7 @@
     "playwright": "^1.61.1",
     "prettier": "^3.9.3",
     "prettier-plugin-tailwindcss": "^0.8.0",
-    "sharp": "^0.35.2",
+    "sharp": "^0.35.3",
     "svgo": "^4.0.1",
     "tailwindcss": "^4",
     "typed-css-modules": "^0.9.1",
