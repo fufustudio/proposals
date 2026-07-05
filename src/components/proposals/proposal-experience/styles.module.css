@@ -1,0 +1,135 @@
+.root {
+  --proposal-progress: 0;
+  --proposal-stage-max: 1640px;
+  --proposal-rail-width: 12rem;
+  --proposal-stage-gap: clamp(2rem, 4vw, 4.5rem);
+  --proposal-content-max: 1240px;
+  --proposal-section-min-height: 100svh;
+  position: relative;
+}
+
+.progressTrack {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 70;
+  height: 2px;
+  background: color-mix(in srgb, var(--color-muted) 58%, transparent);
+}
+
+.progressValue {
+  width: calc(var(--proposal-progress) * 100%);
+  height: 100%;
+  background: var(--color-accent);
+  transition: width 120ms linear;
+}
+
+.rail {
+  display: none;
+}
+
+.stage {
+  min-width: 0;
+}
+
+.content {
+  min-width: 0;
+  container-name: proposal-content;
+  container-type: inline-size;
+}
+
+.rail ol {
+  display: grid;
+  gap: 0.7rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.railLink {
+  display: grid;
+  grid-template-columns: 0.85rem minmax(0, 1fr);
+  gap: 0.65rem;
+  align-items: center;
+  color: var(--color-body);
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 12px;
+  line-height: 1.25;
+  text-transform: uppercase;
+  transition:
+    color 180ms ease,
+    opacity 180ms ease;
+}
+
+.railLink:hover,
+.railLink[data-state="active"] {
+  color: var(--color-accent);
+}
+
+.railLink[data-state="complete"] {
+  color: var(--color-fg);
+}
+
+.dot {
+  display: inline-grid;
+  width: 0.55rem;
+  height: 0.55rem;
+  border: 1px solid currentColor;
+  border-radius: 999px;
+  place-items: center;
+}
+
+.railLink[data-state="active"] .dot {
+  background: currentColor;
+}
+
+.railLink[data-state="complete"] .dot::after {
+  width: 0.22rem;
+  height: 0.38rem;
+  border-right: 1px solid currentColor;
+  border-bottom: 1px solid currentColor;
+  content: "";
+  transform: translateY(-0.03rem) rotate(45deg);
+}
+
+@media (min-width: 1180px) {
+  .stage {
+    display: grid;
+    grid-template-columns:
+      var(--proposal-rail-width)
+      minmax(0, var(--proposal-content-max));
+    gap: var(--proposal-stage-gap);
+    width: min(calc(100% - clamp(3rem, 5vw, 6rem)), var(--proposal-stage-max));
+    margin-inline: auto;
+  }
+
+  .rail {
+    position: sticky;
+    top: 50%;
+    z-index: 40;
+    display: block;
+    align-self: start;
+    max-height: calc(100svh - 8rem);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    transform: translateY(-50%);
+    scrollbar-width: thin;
+  }
+
+  .content {
+    grid-column: 2;
+  }
+}
+
+@media (min-width: 1800px) {
+  .root {
+    --proposal-stage-max: 1720px;
+    --proposal-content-max: 1320px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .progressValue,
+  .railLink {
+    transition: none;
+  }
+}

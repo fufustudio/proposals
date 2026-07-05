@@ -1,45 +1,48 @@
 # Architecture
 
-This starter is a minimal Next.js App Router application with Sanity support for
-client builds and local fallbacks for credential-free development.
+This app is a small Next.js App Router site for private proposal pages. It uses
+local typed proposal fixtures until real proposal copy, design, and a final
+content source are supplied.
 
 ## Request Flow
 
-1. Routes in `src/app/(site)` compose site chrome, reusable UI primitives,
-   section recipes, and local content.
-2. `src/lib/cms.ts` returns local defaults until Sanity credentials are configured.
-3. `src/app/(site)/layout.tsx` loads site settings once for shared chrome and structured data.
-4. Optional Sanity Studio is mounted at `/studio` outside the public route group.
+1. Public routes in `src/app/(site)` render the index, access screen, and
+   protected proposal reader.
+2. `src/proxy.ts` is the thin Next Proxy convention file. It delegates proposal
+   access decisions to `src/server/proposal-access-gate.ts`.
+3. `src/app/api/proposal-access/route.ts` validates a per-proposal password and
+   sets a signed HttpOnly cookie scoped to that proposal path.
+4. `src/features/proposals/index.ts` reads local proposal fixtures from
+   `src/content/proposals.ts`.
+5. `src/server/proposal-access.ts` owns access-code env parsing, password checks,
+   redirect sanitization, token signing, and cookie verification.
 
 ## Core Directories
 
-- `src/app/` - routes, route groups, metadata, sitemap, robots, OpenGraph image, Studio route.
+- `src/app/` - routes, metadata, sitemap, robots, OpenGraph image, and API
+  handlers.
 - `src/components/ui/` - low-level primitives such as buttons, containers,
   section wrappers, form fields, links, image frames, and copy helpers.
-- `src/components/sections/` - reusable page-section recipes for basic
-  brochure, service, and content sites.
-- `src/components/site/` - shared site chrome such as header, footer, and
-  chrome-specific helpers.
-- `src/content/` - tiny local defaults and examples.
-- `src/lib/` - env, SEO, CMS helpers, image helpers, theme mirror.
-- `src/sanity/` - Sanity schema, Studio structure, client helpers.
-- `scripts/` - generated-file checks, component validation, template guard, CMS utilities.
+- `src/components/proposals/` - proposal-specific reader and access surfaces.
+- `src/components/site/` - shared site chrome.
+- `src/content/` - local proposal fixtures.
+- `src/features/proposals/` - proposal domain types, local data lookup, and
+  proposal route path helpers.
+- `src/server/` - server-only proposal access helpers and proxy gate logic.
+- `src/lib/` - app-wide env, SEO, theme mirror, and generic utilities.
+- `scripts/` - generated-file checks, component validation, and scaffold
+  cleanup checks.
 
 ## Ownership Rules
 
 - Pages own composition.
 - UI primitives own reusable controls and layout atoms.
-- Section recipes own repeated page-section composition.
+- Proposal components own proposal-specific presentation.
 - Site components own shared chrome.
-- `src/lib` owns cross-route logic.
-- `src/content` owns local examples and defaults.
-- `src/sanity` owns the Sanity CMS shape.
+- `src/features/proposals` owns proposal-specific shared domain logic.
+- `src/server` owns password, cookie, and request-gating logic.
+- `src/lib` owns app-wide utilities that are not proposal-domain specific.
+- `src/content` owns local fixture data.
 
-Do not duplicate content constants in JSX. If content is reused, move it to
-`src/content` as a local fallback and model it in Sanity for client builds.
-
-## Default Data Boundary
-
-The starter must work without live CMS credentials. `getSiteSettings()` returns
-local defaults until Sanity is configured. Client builds should configure
-Sanity by default.
+Do not duplicate proposal content constants in JSX. If content is reused, move
+it to `src/content/proposals.ts` and keep the route composition thin.

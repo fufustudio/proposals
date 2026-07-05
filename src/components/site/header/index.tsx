@@ -5,8 +5,7 @@ import Link, { type LinkProps } from "next/link";
 import { usePathname } from "next/navigation";
 import type { NavItem, PatternHref } from "@/components/types";
 import { Container } from "@/components/ui/container";
-import type { SiteSettings } from "@/lib/cms";
-import { MAIN_NAV } from "@/lib/site-defaults";
+import { MAIN_NAV, SITE_NAME, type SiteSettings } from "@/lib/site-defaults";
 import styles from "./styles.module.css";
 
 function classNames(...classes: Array<string | false | null | undefined>) {
@@ -69,7 +68,7 @@ export function Header({
     <header className={classNames(styles.root, styles.solidOverlay)}>
       <Container size="xl" className={styles.inner}>
         <Link href="/" className={styles.wordmark}>
-          {siteSettings?.name ?? "Fufu Starter"}
+          {siteSettings?.name ?? SITE_NAME}
         </Link>
 
         {hasNavItems ? (

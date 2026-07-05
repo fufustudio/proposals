@@ -1,0 +1,150 @@
+.textBlock {
+  display: grid;
+  gap: 1rem;
+  max-width: 680px;
+  font-size: 18px;
+  line-height: 1.6;
+}
+
+.textBlock p,
+.card p,
+.timeline p,
+.summary span {
+  margin: 0;
+}
+
+.cardGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+.card,
+.summary,
+.media {
+  border: 1px solid var(--color-muted);
+  border-radius: var(--radius-card);
+  background: color-mix(in srgb, var(--color-surface) 72%, transparent);
+}
+
+.card {
+  display: grid;
+  gap: 0.75rem;
+  min-height: 10rem;
+  padding: 1.25rem;
+}
+
+.timeline {
+  position: relative;
+  display: grid;
+  gap: 1.35rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.timeline::before {
+  position: absolute;
+  top: 0.55rem;
+  bottom: 0.55rem;
+  left: 0.4rem;
+  width: 1px;
+  background: color-mix(in srgb, var(--color-accent) 48%, transparent);
+  content: "";
+}
+
+.timeline li {
+  position: relative;
+  display: grid;
+  grid-template-columns: 0.85rem minmax(0, 1fr);
+  gap: 1rem;
+}
+
+.timelineMarker {
+  position: relative;
+  z-index: 1;
+  width: 0.85rem;
+  height: 0.85rem;
+  margin-top: 0.35rem;
+  border: 1px solid var(--color-accent);
+  border-radius: 999px;
+  background: var(--color-bg);
+}
+
+.timeline h3 {
+  margin-bottom: 0.45rem;
+}
+
+.details {
+  border-color: var(--color-muted);
+}
+
+.summary {
+  display: grid;
+}
+
+.summary div {
+  display: grid;
+  gap: 0.75rem;
+  padding: 1.25rem;
+}
+
+.summary div + div {
+  border-top: 1px solid var(--color-muted);
+}
+
+.summary dt {
+  color: var(--color-accent);
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.summary dd {
+  display: grid;
+  gap: 0.45rem;
+  margin: 0;
+}
+
+.summary strong {
+  color: var(--color-fg);
+  font-family: var(--font-sans), system-ui, sans-serif;
+  font-size: 20px;
+}
+
+.media {
+  display: grid;
+  min-width: 0;
+  width: 100%;
+  place-items: center;
+  color: var(--color-accent);
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 12px;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.media[data-aspect="square"] {
+  aspect-ratio: 1;
+}
+
+.media[data-aspect="portrait"] {
+  aspect-ratio: 4 / 5;
+}
+
+.media[data-aspect="wide"] {
+  aspect-ratio: 16 / 9;
+}
+
+@container (min-width: 700px) {
+  .cardGrid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .summary div {
+    grid-template-columns: minmax(0, 0.7fr) minmax(0, 1fr);
+    align-items: start;
+  }
+}

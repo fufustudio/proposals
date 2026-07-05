@@ -1,13 +1,3 @@
-.shell {
-  display: flex;
-  min-height: 100vh;
-  flex-direction: column;
-}
-
-.main {
-  flex: 1 1 auto;
-}
-
 .hero {
   display: flex;
   min-height: 680px;
@@ -37,78 +27,34 @@
   line-height: 1.6;
 }
 
-.actions {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 1rem 1.5rem;
-  margin-top: 2rem;
-}
-
 .sectionIntro {
   grid-column: 1 / -1;
   justify-self: center;
 }
 
-.principleItem {
-  composes: interactive-cell from global;
-  padding: 2rem 1rem;
-}
-
-.principleTitle {
-  margin-bottom: 0.75rem;
-}
-
-.principleBody {
-  max-width: 28rem;
-}
-
-.homeBody {
+.proposalGrid {
   grid-column: 1 / -1;
-  max-width: 760px;
-  justify-self: center;
-  font-size: 18px;
-  line-height: 1.7;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
 }
 
-.homeBody > * + * {
-  margin-top: 1rem;
+.proposalCard {
+  display: grid;
+  gap: 1rem;
+  align-content: start;
+  padding: 1.25rem;
+  border: 1px solid var(--color-muted);
+  border-radius: var(--radius-card);
+  background: color-mix(in srgb, var(--color-surface) 70%, transparent);
 }
 
-.contact {
-  background-color: var(--color-fg);
-  color: var(--color-light);
+.proposalCard p {
+  margin: 0;
 }
 
-.contactGrid {
-  composes: site-grid from global;
-  align-items: start;
-}
-
-.contactCopy,
-.formColumn {
-  grid-column: 1 / -1;
-}
-
-.contactHeading {
-  margin-top: 1rem;
-  color: var(--color-light);
-}
-
-.contactIntro {
-  max-width: 34rem;
-  margin-top: 1.5rem;
-  color: var(--color-light);
-  font-size: 18px;
-  line-height: 1.6;
-}
-
-.contact :global(.eyebrow) {
-  color: var(--color-light);
-}
-
-.formColumn {
-  margin-top: 2.5rem;
+.proposalCard a {
+  width: fit-content;
 }
 
 @media (min-width: 768px) {
@@ -120,14 +66,7 @@
     grid-column: 1 / span 8;
   }
 
-  .contactCopy {
-    position: sticky;
-    top: 7rem;
-    grid-column: 1 / span 5;
-  }
-
-  .formColumn {
-    grid-column: 7 / -1;
-    margin-top: 0;
+  .proposalGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }

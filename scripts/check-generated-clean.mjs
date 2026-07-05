@@ -1,10 +1,6 @@
 import { execFileSync } from "node:child_process";
 
-const GENERATED_PATTERNS = [
-  "sanity.types.ts",
-  "schema.json",
-  ".generated/css-types/**/*.module.d.css.ts",
-];
+const GENERATED_PATTERNS = [".generated/css-types/**/*.module.d.css.ts"];
 
 function git(args) {
   return execFileSync("git", args, {
@@ -20,7 +16,7 @@ if (status) {
     [
       "Generated files are out of date.",
       "",
-      "Run `npm run css-types` and `npm run typegen`, then commit the generated output.",
+      "Run `npm run css-types`, then commit the generated output.",
       "",
       status,
     ].join("\n"),

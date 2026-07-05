@@ -1,38 +1,38 @@
-# fufu-starter
+# Fufu Proposals
 
-Fufu house starter for fast, consistent Next.js site builds.
+Private proposal scaffold for Fufu project scopes, timelines, investment notes,
+and next steps.
 
-## Agent Entry
+This repo is intentionally local-first for now. It ships one fake sample
+proposal so routing, access control, metadata, and QA can be verified before
+real proposal copy and design assets are brought in from Figma or other sources.
 
-Read [AGENTS.md](./AGENTS.md), then use:
+## Routes
 
-- [docs/new-project-checklist.md](./docs/new-project-checklist.md) for template setup.
-- [docs/design-to-site.md](./docs/design-to-site.md) for design-file builds.
-- [docs/project-brief.template.md](./docs/project-brief.template.md) for intake.
-- [docs/client-build-plan.template.md](./docs/client-build-plan.template.md) for the live build checklist.
-- [docs/security.md](./docs/security.md) for security, privacy, and consent checks.
+- `/` - proposal entry/index scaffold.
+- `/proposals/[slug]/access` - password entry.
+- `/proposals/[slug]` - protected proposal reader.
+- `/api/proposal-access` - form handler that validates proposal passwords and
+  sets a signed HttpOnly access cookie.
 
-## Starter Shape
-
-The reusable starter ships with `/`, optional `/studio`, `/api/contact`, and
-metadata routes. The home page demonstrates local fallbacks, an optional
-Sanity-backed `home` page document, empty navigation defaults, and the reusable
-Resend message-form pattern without publishing standalone example/contact
-routes.
-
-## Verification
-
-Use the active-development gate while shaping template changes:
+## Environment
 
 ```bash
+NEXT_PUBLIC_SITE_URL=http://localhost:3000
+PROPOSAL_ACCESS_CODES={"sample-proposal":"demo"}
+PROPOSAL_SESSION_SECRET=replace-with-a-long-random-secret
+GOOGLE_SITE_VERIFICATION=
+```
+
+Development and test runs can use the built-in sample proposal fallback when
+proposal access variables are blank. Production must configure real values.
+
+## Development
+
+```bash
+npm run dev
 npm run verify:working
 ```
 
-Use the template gate before handoff so generated files and template cleanliness
-are checked:
-
-```bash
-npm run verify:template
-```
-
-Use `npm run verify:handoff` for client-site handoff when Playwright is ready.
+Use `npm run verify:handoff` when browser checks should run against the
+production build.

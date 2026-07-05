@@ -1,6 +1,6 @@
-import type { FeatureIcon } from "@/lib/cms";
-
 import styles from "./styles.module.css";
+
+export type FeatureIcon = "circle" | "leaves" | "bud" | "quatrefoil";
 
 function Icon({
   size = 32,

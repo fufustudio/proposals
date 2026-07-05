@@ -12,7 +12,6 @@ jobs:
   build:
     runs-on: ubuntu-latest
     env:
-      NEXT_PUBLIC_SANITY_API_VERSION: "2026-06-24"
       NEXT_PUBLIC_SITE_URL: http://127.0.0.1:3000
     steps:
       - uses: actions/checkout@v4
@@ -29,8 +28,8 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-next-${{ hashFiles('package-lock.json') }}-
             ${{ runner.os }}-next-
-      - name: Verify template
-        run: npm run verify:template
+      - name: Verify proposal scaffold
+        run: npm run verify:proposal
       - name: Install Playwright browser
         run: npm run playwright:install
       - name: Playwright e2e

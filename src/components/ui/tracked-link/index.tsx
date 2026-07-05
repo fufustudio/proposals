@@ -4,6 +4,11 @@ import Link, { type LinkProps } from "next/link";
 import type { ReactNode } from "react";
 import { track } from "@vercel/analytics";
 import type { PatternHref } from "@/components/types";
+import styles from "./styles.module.css";
+
+function classNames(...classes: Array<string | false | null | undefined>) {
+  return classes.filter(Boolean).join(" ");
+}
 
 export function TrackedLink({
   href,
@@ -29,7 +34,7 @@ export function TrackedLink({
         target="_blank"
         rel="noopener noreferrer"
         aria-label={ariaLabel}
-        className={className}
+        className={classNames(styles.root, className)}
         onClick={handleClick}
       >
         {children}
@@ -41,7 +46,7 @@ export function TrackedLink({
     <Link
       href={href as LinkProps<string>["href"]}
       aria-label={ariaLabel}
-      className={className}
+      className={classNames(styles.root, className)}
       onClick={handleClick}
     >
       {children}

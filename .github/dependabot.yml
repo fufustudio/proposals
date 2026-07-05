@@ -12,11 +12,6 @@ updates:
           - react
           - react-dom
           - eslint-config-next
-      sanity:
-        patterns:
-          - sanity
-          - next-sanity
-          - "@sanity/*"
   - package-ecosystem: github-actions
     directory: /
     schedule:

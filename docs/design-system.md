@@ -1,6 +1,6 @@
 # Design System
 
-The starter provides a restrained layout and styling contract, not a finished brand.
+The proposal scaffold provides a restrained layout and styling contract, not a finished brand.
 
 ## Theme Tokens
 
@@ -39,7 +39,7 @@ Default composition:
   class, and section size. Use them to fit project composition, not as a
   substitute for route-local CSS or new repeated recipes.
 
-Use `docs/component-registry.md` with `docs/design-to-site.md` when translating a design into starter primitives.
+Use `docs/component-registry.md` with `docs/design-to-site.md` when translating a design into proposal primitives.
 
 ## Buttons And Links
 

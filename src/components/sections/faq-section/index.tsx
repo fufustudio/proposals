@@ -10,6 +10,11 @@ import {
   type SectionTone,
 } from "@/components/ui/section";
 import { SectionHeading } from "@/components/ui/section-heading";
+import styles from "./styles.module.css";
+
+function classNames(...classes: Array<string | false | null | undefined>) {
+  return classes.filter(Boolean).join(" ");
+}
 
 export type FaqItem = {
   question: ReactNode;
@@ -36,7 +41,11 @@ export function FaqSection({
   sectionSize?: SectionSize;
 }) {
   return (
-    <Section tone={tone} size={sectionSize} className={className}>
+    <Section
+      tone={tone}
+      size={sectionSize}
+      className={classNames(styles.root, className)}
+    >
       <Container size="lg" className={containerClassName}>
         <SectionHeading eyebrow={eyebrow} heading={heading} intro={intro} />
         <DisclosureList>

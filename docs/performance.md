@@ -1,20 +1,23 @@
 # Performance
 
-The starter keeps performance work straightforward by starting with minimal content and no heavy visual assets.
+The proposal scaffold starts with minimal local content and no heavy visual
+assets.
 
 ## Images
 
-- Use `next/image` for meaningful images and above-the-fold media.
-- Use `BackgroundImageLayer` only when a project needs cover-style responsive imagery.
-- Avoid large CSS background images.
+- Use `next/image` for meaningful images when real proposal design assets are
+  added.
 - Provide useful alt text for meaningful images.
-- Keep Sanity-hosted images flowing through `src/lib/next-image-loader.ts`.
+- Give fixed-format media stable dimensions with aspect ratios or explicit
+  width/height.
+- Avoid large CSS background images unless the final design requires them.
 
 ## Layout Stability
 
-- Give fixed-format media stable dimensions.
-- Avoid swapping form states with wildly different heights.
-- Reserve space for interactive elements that appear after hydration.
+- Reserve stable space for proposal metadata, section controls, and future media.
+- Avoid swapping access form states with dramatically different heights.
+- Check long client names, long section titles, and currency/price labels before
+  handoff.
 
 ## Verification
 
@@ -22,4 +25,5 @@ The starter keeps performance work straightforward by starting with minimal cont
 npm run verify:release
 ```
 
-Use Lighthouse results as a signal, then confirm real pages manually on mobile and desktop.
+Use Lighthouse results as a signal, then confirm real proposal pages manually on
+mobile and desktop.

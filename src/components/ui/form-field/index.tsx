@@ -64,7 +64,7 @@ export function FormField(props: FormFieldProps) {
         </p>
       ) : null}
       {error ? (
-        <p id={errorId} className={styles.error}>
+        <p id={errorId} className={styles.error} role="alert">
           {error}
         </p>
       ) : null}

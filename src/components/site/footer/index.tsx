@@ -1,8 +1,7 @@
 import Link, { type LinkProps } from "next/link";
 import type { NavItem } from "@/components/types";
 import { Container } from "@/components/ui/container";
-import type { SiteSettings } from "@/lib/cms";
-import { FOOTER_NAV } from "@/lib/site-defaults";
+import { FOOTER_NAV, SITE_NAME, type SiteSettings } from "@/lib/site-defaults";
 import styles from "./styles.module.css";
 
 export function Footer({
@@ -17,7 +16,7 @@ export function Footer({
       <Container size="xl" className={styles.grid}>
         <div className={styles.brand}>
           <Link href="/" className={styles.wordmark}>
-            {siteSettings?.name ?? "Fufu Starter"}
+            {siteSettings?.name ?? SITE_NAME}
           </Link>
           {siteSettings?.tagline ? (
             <p className={styles.tagline}>{siteSettings.tagline}</p>
@@ -39,7 +38,7 @@ export function Footer({
         ) : null}
 
         <div className={styles.info}>
-          © {new Date().getFullYear()} {siteSettings?.name ?? "Fufu Starter"}
+          © {new Date().getFullYear()} {siteSettings?.name ?? SITE_NAME}
         </div>
       </Container>
     </footer>

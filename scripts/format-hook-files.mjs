@@ -20,11 +20,7 @@ const formatExtensions = new Set([
 
 const lintExtensions = new Set([".cjs", ".js", ".jsx", ".mjs", ".ts", ".tsx"]);
 
-const ignoredFiles = new Set([
-  "package-lock.json",
-  "sanity.types.ts",
-  "schema.json",
-]);
+const ignoredFiles = new Set(["package-lock.json"]);
 
 function readStdin() {
   return new Promise((resolve) => {
