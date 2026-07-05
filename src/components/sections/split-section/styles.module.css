@@ -1,0 +1,47 @@
+.grid {
+  composes: site-grid from global;
+  display: grid;
+  align-items: center;
+}
+
+.copy,
+.media {
+  grid-column: 1 / -1;
+}
+
+.body {
+  max-width: 620px;
+  margin-top: 1.5rem;
+  font-size: 16px;
+  line-height: 1.7;
+}
+
+.body > * + * {
+  margin-top: 1rem;
+}
+
+.actions {
+  margin-top: 2rem;
+}
+
+.imageStart .media {
+  order: -1;
+}
+
+@media (min-width: 1024px) {
+  .imageEnd .copy {
+    grid-column: 1 / span 6;
+  }
+
+  .imageEnd .media {
+    grid-column: 8 / -1;
+  }
+
+  .imageStart .media {
+    grid-column: 1 / span 5;
+  }
+
+  .imageStart .copy {
+    grid-column: 7 / -1;
+  }
+}

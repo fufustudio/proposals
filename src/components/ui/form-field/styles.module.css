@@ -1,0 +1,36 @@
+.label {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.visibleLabel {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-family: var(--font-sans), system-ui, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--color-fg);
+}
+
+.description,
+.error {
+  margin-top: 0.5rem;
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+.description {
+  color: var(--color-body);
+}
+
+.error {
+  color: var(--color-accent);
+}

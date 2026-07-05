@@ -1,0 +1,79 @@
+.root {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: var(--radius-btn);
+  border: 1px solid transparent;
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  text-align: center;
+  text-decoration: none;
+  transition:
+    background-color 0.25s ease,
+    border-color 0.25s ease,
+    color 0.25s ease;
+  cursor: pointer;
+}
+
+.sm {
+  min-height: 2.75rem;
+  padding: 0.78rem 1.35rem;
+  font-size: 12px;
+}
+
+.md {
+  min-height: 3.25rem;
+  padding: 1rem 2.4rem;
+}
+
+.primary {
+  background-color: var(--color-fg);
+  color: var(--color-light);
+}
+
+.primary:hover {
+  background-color: var(--color-button-primary-hover);
+}
+
+.secondary {
+  background-color: var(--color-surface);
+  color: var(--color-fg);
+  border-color: var(--color-muted);
+}
+
+.secondary:hover {
+  background-color: var(--color-feature);
+}
+
+.outline {
+  border-color: var(--color-fg);
+  color: var(--color-fg);
+}
+
+.outline:hover {
+  background-color: var(--color-fg);
+  color: var(--color-light);
+}
+
+.ghost {
+  color: var(--color-accent);
+}
+
+.ghost:hover {
+  background-color: var(--color-interactive-hover);
+  color: var(--color-fg);
+}
+
+.root:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+}
+
+.root:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

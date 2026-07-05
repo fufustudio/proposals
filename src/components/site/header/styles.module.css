@@ -1,0 +1,357 @@
+.root {
+  position: fixed;
+  inset-inline: 0;
+  top: 0;
+  z-index: 50;
+  transition: background-color 500ms ease;
+}
+
+.homeOverlay {
+  background-color: var(--color-nav-overlay-cool);
+}
+
+.contactOverlay {
+  background-color: var(--color-nav-overlay-warm);
+}
+
+.quoteOverlay {
+  background-color: var(--color-nav-overlay-deep);
+}
+
+.solidOverlay {
+  background-color: var(--color-nav-surface-overlay);
+}
+
+.inner {
+  position: relative;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding-block: 1rem;
+}
+
+.wordmark {
+  font-family: var(--font-heading), Georgia, serif;
+  font-size: 18px;
+  color: var(--color-fg);
+  letter-spacing: 0;
+  transition: color 300ms ease;
+}
+
+.lightText {
+  color: var(--color-light);
+}
+
+.darkText {
+  color: var(--color-fg);
+}
+
+.desktopNav {
+  display: none;
+  align-items: center;
+  gap: 2rem;
+}
+
+.desktopLink {
+  position: relative;
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--color-body);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  transition: color 300ms ease;
+}
+
+.desktopLink::after {
+  content: "";
+  position: absolute;
+  bottom: -0.375rem;
+  left: 0;
+  height: 1px;
+  width: 100%;
+  background-color: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 300ms ease;
+}
+
+.desktopLink:hover::after,
+.activeLink::after {
+  transform: scaleX(1);
+}
+
+.desktopLink:hover,
+.activeLink {
+  color: var(--color-accent);
+}
+
+.lightLink {
+  color: rgb(241 238 235 / 0.9);
+}
+
+.lightLink:hover,
+.activeLightLink {
+  color: var(--color-light);
+}
+
+.darkLink {
+  color: var(--color-body);
+}
+
+.darkLink:hover,
+.activeDarkLink {
+  color: var(--color-accent);
+}
+
+.menuButton {
+  display: inline-flex;
+  height: 1.5rem;
+  min-width: 3rem;
+  align-items: center;
+  justify-content: flex-end;
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--color-fg);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.panel {
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+  overflow-y: auto;
+  opacity: 0;
+  backdrop-filter: blur(0);
+  will-change: opacity, backdrop-filter;
+}
+
+.panelOpen {
+  animation: mobile-menu-panel-in 520ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.panelClosing {
+  pointer-events: none;
+  animation: mobile-menu-panel-out 460ms cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+
+.mobileContainer {
+  display: flex;
+  min-height: 100dvh;
+  flex-direction: column;
+  justify-content: center;
+  padding-block: 7rem;
+}
+
+.primaryNav {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.25rem;
+}
+
+.secondary {
+  margin-top: 3rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1rem;
+  border-top: 1px solid;
+  padding-top: 2rem;
+}
+
+.secondaryLight {
+  border-color: rgb(241 238 235 / 0.3);
+}
+
+.secondaryDark {
+  border-color: rgb(58 35 42 / 0.2);
+}
+
+.item {
+  opacity: 0;
+  transform: translateY(-14px);
+  will-change: opacity, transform;
+}
+
+.primaryItem {
+  font-family: var(--font-heading), Georgia, serif;
+  font-size: clamp(1.75rem, 4vw, 38px);
+  font-weight: 400;
+  line-height: 1.08;
+  letter-spacing: 0;
+  transition: color 150ms ease;
+}
+
+.utilityItem {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transition: color 150ms ease;
+}
+
+.primaryLight {
+  color: rgb(241 238 235 / 0.85);
+}
+
+.primaryLight:hover,
+.activePrimaryLight {
+  color: var(--color-light);
+}
+
+.primaryDark {
+  color: var(--color-fg);
+}
+
+.primaryDark:hover,
+.activePrimaryDark {
+  color: var(--color-accent);
+}
+
+.utilityLight {
+  color: rgb(241 238 235 / 0.75);
+}
+
+.utilityLight:hover,
+.activeUtilityLight {
+  color: var(--color-light);
+}
+
+.utilityDark {
+  color: var(--color-body);
+}
+
+.utilityDark:hover,
+.activeUtilityDark {
+  color: var(--color-accent);
+}
+
+.panelOpen .item {
+  animation: mobile-menu-item-in 620ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.panelClosing .item {
+  animation: mobile-menu-item-out 340ms cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+
+.panelOpen .item:nth-child(1) {
+  animation-delay: 110ms;
+}
+
+.panelOpen .item:nth-child(2) {
+  animation-delay: 165ms;
+}
+
+.panelOpen .item:nth-child(3) {
+  animation-delay: 220ms;
+}
+
+.panelOpen .item:nth-child(4) {
+  animation-delay: 275ms;
+}
+
+.panelOpen .item:nth-child(5) {
+  animation-delay: 330ms;
+}
+
+.panelOpen .item:nth-child(6) {
+  animation-delay: 385ms;
+}
+
+.panelOpen .item:nth-child(7) {
+  animation-delay: 440ms;
+}
+
+.panelOpen .secondary .item:nth-child(1) {
+  animation-delay: 345ms;
+}
+
+.panelOpen .secondary .item:nth-child(2) {
+  animation-delay: 400ms;
+}
+
+.panelOpen .secondary .item:nth-child(3) {
+  animation-delay: 455ms;
+}
+
+@keyframes mobile-menu-panel-in {
+  from {
+    opacity: 0;
+    backdrop-filter: blur(0);
+  }
+  to {
+    opacity: 1;
+    backdrop-filter: blur(40px);
+  }
+}
+
+@keyframes mobile-menu-panel-out {
+  from {
+    opacity: 1;
+    backdrop-filter: blur(40px);
+  }
+  to {
+    opacity: 0;
+    backdrop-filter: blur(0);
+  }
+}
+
+@keyframes mobile-menu-item-in {
+  from {
+    opacity: 0;
+    transform: translateY(-14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes mobile-menu-item-out {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .panel,
+  .item {
+    animation: none;
+    transform: none;
+  }
+
+  .panelOpen,
+  .panelOpen .item {
+    opacity: 1;
+  }
+
+  .panelClosing,
+  .panelClosing .item {
+    opacity: 0;
+  }
+}
+
+@media (min-width: 640px) {
+  .desktopNav {
+    display: flex;
+  }
+
+  .menuButton,
+  .panel {
+    display: none;
+  }
+}

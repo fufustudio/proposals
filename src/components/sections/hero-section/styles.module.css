@@ -1,0 +1,83 @@
+.root {
+  position: relative;
+  overflow: hidden;
+}
+
+.container {
+  position: relative;
+  z-index: 1;
+}
+
+.text .container,
+.background .container {
+  display: flex;
+  min-height: 34rem;
+  align-items: center;
+  justify-content: center;
+}
+
+.grid {
+  composes: site-grid from global;
+  display: grid;
+  align-items: center;
+}
+
+.copy {
+  width: 100%;
+}
+
+.text .copy,
+.background .copy {
+  max-width: 760px;
+}
+
+.split .copy {
+  grid-column: 1 / -1;
+}
+
+.media {
+  grid-column: 1 / -1;
+  margin-top: 2.5rem;
+}
+
+.actions {
+  margin-top: 2rem;
+}
+
+.bgImage {
+  object-fit: cover;
+}
+
+.scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background:
+    linear-gradient(rgb(58 35 42 / 0.62), rgb(58 35 42 / 0.62)), var(--color-fg);
+}
+
+.hasBg {
+  color: var(--color-light);
+}
+
+.lightCopy :is(h1, h2, h3, p) {
+  color: var(--color-light);
+}
+
+@media (min-width: 768px) {
+  .text .container,
+  .background .container {
+    min-height: 40rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .split .copy {
+    grid-column: 1 / span 6;
+  }
+
+  .media {
+    grid-column: 8 / -1;
+    margin-top: 0;
+  }
+}

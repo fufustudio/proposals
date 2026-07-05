@@ -1,0 +1,49 @@
+.header {
+  width: 100%;
+}
+
+.stack {
+  display: block;
+}
+
+.grid {
+  composes: site-grid from global;
+  display: grid;
+}
+
+.headingGrid {
+  grid-column: 1 / -1;
+  justify-self: center;
+}
+
+.childrenGrid {
+  grid-column: 1 / -1;
+  justify-self: center;
+  width: 100%;
+}
+
+.widthSm {
+  max-width: 520px;
+}
+
+.widthMd {
+  max-width: 680px;
+}
+
+.widthLg {
+  max-width: 900px;
+}
+
+.widthXl {
+  max-width: 1120px;
+}
+
+.hasChildren {
+  margin-bottom: 1rem;
+}
+
+@media (min-width: 640px) {
+  .hasChildren {
+    margin-bottom: 3.75rem;
+  }
+}

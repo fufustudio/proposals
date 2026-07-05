@@ -1,0 +1,71 @@
+.root {
+  width: 100%;
+}
+
+.center {
+  margin-inline: auto;
+  text-align: center;
+}
+
+.left {
+  text-align: left;
+}
+
+.sm {
+  max-width: 520px;
+}
+
+.md {
+  max-width: 680px;
+}
+
+.lg {
+  max-width: 900px;
+}
+
+.eyebrow {
+  font-family: var(--font-sans), system-ui, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.6;
+  color: var(--color-accent);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+.gapDefault {
+  margin-bottom: 3.5rem;
+}
+
+.gapSpacious {
+  margin-bottom: 4rem;
+}
+
+.headingAfterEyebrow {
+  margin-top: 1rem;
+}
+
+.intro {
+  margin-top: 1.25rem;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+.center .intro {
+  margin-inline: auto;
+  max-width: 520px;
+}
+
+.left .intro {
+  max-width: 560px;
+}
+
+@media (min-width: 640px) {
+  .gapDefault {
+    margin-bottom: 3.75rem;
+  }
+
+  .gapSpacious {
+    margin-bottom: 5rem;
+  }
+}

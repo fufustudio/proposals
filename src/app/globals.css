@@ -1,0 +1,312 @@
+@import "tailwindcss";
+
+/* ============================================================
+   THEME CONTRACT — to rebrand, edit only this block (and the
+   three font families in layout.tsx). Markup references roles
+   (bg-surface, text-accent, tone="feature"…), never color names,
+   so a new direction means new values here and nothing else.
+   ============================================================ */
+@theme {
+  --color-bg: #eae6dd; /* page background */
+  --color-fg: #3a232a; /* headings and dark bands */
+  --color-body: #40383a; /* body copy (softer than fg) */
+  --color-surface: #fbf8f1; /* cards / raised panels */
+  --color-muted: rgb(241 238 235 / 0.9); /* hairline borders, card edges */
+  --color-accent: #6f2e39; /* links, eyebrows, emphasis */
+  --color-accent-soft: #e3c7cb; /* selection and subtle fills */
+  --color-feature: #efe2d6; /* warm feature band */
+  --color-light: #fffaf4; /* type on dark / image bands */
+  --color-cream: #e5ded9; /* alternate cream text / translucent overlays */
+  --color-icon: #c79da4; /* feature icon accents */
+  --color-field-surface: #2a2025;
+  --color-field-surface-focus: #21191d;
+  --color-button-primary-hover: #52333b;
+  --color-nav-overlay-cool: rgb(18 46 58 / 0.3);
+  --color-nav-overlay-warm: rgb(37 31 18 / 0.25);
+  --color-nav-overlay-deep: rgb(7 24 25 / 0.3);
+  --color-nav-surface-overlay: #e5ded9;
+  --color-interactive-hover: rgb(241 238 235 / 0.24);
+
+  --font-heading: var(--font-baskerville);
+  --font-body: var(--font-baskerville);
+  --font-sans: var(--font-manrope);
+  --font-mono: var(--font-plex-mono);
+  --radius-btn: 9999px;
+  --radius-card: 8px;
+  --radius-media: 8px;
+  --radius-panel: 8px;
+  --shadow-card: 0 24px 60px rgb(58 35 42 / 0.08);
+  --space-section-compact: clamp(3rem, 7vw, 4rem);
+  --space-section-default: clamp(4rem, 8vw, 5rem);
+  --space-section-spacious: clamp(5rem, 10vw, 8rem);
+}
+/* ===================== end theme contract ==================== */
+
+@layer base {
+  body {
+    background-color: var(--color-bg);
+    color: var(--color-body);
+    font-family: var(--font-body), Georgia, serif;
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  ::selection {
+    background: var(--color-accent-soft);
+    color: var(--color-fg);
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-heading), Georgia, serif;
+    font-weight: 400;
+    line-height: 1.08;
+    letter-spacing: 0;
+    color: var(--color-fg);
+  }
+
+  h1 {
+    font-size: clamp(2.6rem, 7vw, 66px);
+  }
+  h2 {
+    font-size: clamp(2rem, 5.5vw, 44px);
+  }
+  h3 {
+    font-size: clamp(1.25rem, 3vw, 24px);
+  }
+}
+
+@layer components {
+  .site-grid {
+    --grid-gutter: clamp(1.25rem, 3vw, 2rem);
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    column-gap: var(--grid-gutter);
+    row-gap: var(--grid-gutter);
+  }
+
+  .grid-full {
+    grid-column: 1 / -1;
+  }
+
+  .grid-center-sm,
+  .grid-center-md,
+  .grid-center-lg,
+  .grid-center-xl {
+    grid-column: 1 / -1;
+    justify-self: center;
+    width: 100%;
+  }
+
+  .grid-center-sm {
+    max-width: 520px;
+  }
+
+  .grid-center-md {
+    max-width: 680px;
+  }
+
+  .grid-center-lg {
+    max-width: 900px;
+  }
+
+  .grid-center-xl {
+    max-width: 1120px;
+  }
+
+  .grid-stack {
+    display: grid;
+    gap: var(--grid-gutter, clamp(1.25rem, 3vw, 2rem));
+  }
+
+  .grid-split-media,
+  .grid-split-copy,
+  .grid-split-copy-wide,
+  .grid-split-half,
+  .grid-split-half-alt {
+    grid-column: 1 / -1;
+  }
+
+  .grid-card-2,
+  .grid-card-4 {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  @media (min-width: 640px) {
+    .site-grid {
+      grid-template-columns: repeat(8, minmax(0, 1fr));
+    }
+
+    .grid-card-2,
+    .grid-card-4 {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (min-width: 768px) {
+    .grid-split-half {
+      grid-column: 1 / span 4;
+    }
+
+    .grid-split-half-alt {
+      grid-column: 5 / -1;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .site-grid {
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+    }
+
+    .grid-split-media {
+      grid-column: 1 / span 4;
+    }
+
+    .grid-split-copy {
+      grid-column: 6 / -1;
+    }
+
+    .grid-split-copy-wide {
+      grid-column: 5 / -1;
+    }
+
+    .grid-split-half {
+      grid-column: 1 / span 6;
+    }
+
+    .grid-split-half-alt {
+      grid-column: 7 / -1;
+    }
+
+    .grid-card-4 {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+  }
+
+  .heading-display,
+  .heading-section,
+  .heading-module,
+  .heading-item {
+    font-family: var(--font-heading), Georgia, serif;
+    font-weight: 400;
+    line-height: 1.08;
+    letter-spacing: 0;
+    color: var(--color-fg);
+  }
+
+  .heading-display {
+    font-size: clamp(2.6rem, 7vw, 66px);
+  }
+
+  .heading-section {
+    font-size: clamp(2rem, 5.5vw, 44px);
+  }
+
+  .heading-module {
+    font-size: clamp(1.75rem, 4vw, 38px);
+  }
+
+  .heading-item {
+    font-size: clamp(1.25rem, 3vw, 24px);
+  }
+
+  /* Manrope eyebrow — small uppercase label above headings */
+  .eyebrow {
+    font-family: var(--font-sans), system-ui, sans-serif;
+    font-weight: 600;
+    font-size: 13px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+  }
+
+  /* IBM Plex Mono label — nav, step numbers, footer captions */
+  .mono-label {
+    font-family: var(--font-mono), ui-monospace, monospace;
+    font-weight: 500;
+    font-size: 13px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+
+  .body-1 {
+    font-size: 18px;
+    line-height: 1.6;
+  }
+
+  .body-2 {
+    font-size: 16px;
+    line-height: 1.6;
+  }
+
+  .body-3 {
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  /* Translucent card surface */
+  .card {
+    background-color: color-mix(in srgb, var(--color-surface) 70%, transparent);
+    border: 1px solid var(--color-muted);
+    border-radius: var(--radius-card);
+  }
+
+  .interactive-cell {
+    transition: background-color 0.25s ease;
+  }
+
+  .interactive-cell:hover {
+    background-color: var(--color-interactive-hover);
+  }
+
+  .prose {
+    line-height: 1.75;
+  }
+  .prose p {
+    margin-bottom: 1.25rem;
+  }
+  .prose a {
+    color: var(--color-accent);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+  .prose h2 {
+    margin: 2rem 0 1rem;
+  }
+}
+
+@keyframes content-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes gentle-bob {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(9px);
+  }
+}
+.content-fade-in {
+  animation: content-fade-in 0.5s ease both;
+}
+.gentle-bob {
+  animation: gentle-bob 1.9s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .content-fade-in,
+  .gentle-bob {
+    animation: none;
+  }
+}

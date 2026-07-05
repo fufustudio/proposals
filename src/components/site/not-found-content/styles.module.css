@@ -1,0 +1,30 @@
+.content {
+  margin-inline: auto;
+  max-width: 620px;
+  text-align: center;
+}
+
+.eyebrow {
+  font-family: var(--font-sans), system-ui, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.6;
+  color: var(--color-accent);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+.heading {
+  margin-top: 1rem;
+}
+
+.message {
+  margin: 1.25rem auto 0;
+  max-width: 520px;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+.cta {
+  margin-top: 2rem;
+}

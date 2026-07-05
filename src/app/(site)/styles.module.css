@@ -1,0 +1,133 @@
+.shell {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+.main {
+  flex: 1 1 auto;
+}
+
+.hero {
+  display: flex;
+  min-height: 680px;
+  align-items: center;
+  background-color: var(--color-feature);
+}
+
+.heroGrid,
+.sectionGrid {
+  composes: site-grid from global;
+}
+
+.heroContent {
+  grid-column: 1 / -1;
+  max-width: 780px;
+  padding-top: 3rem;
+}
+
+.heroHeading {
+  margin-top: 1rem;
+}
+
+.heroBody {
+  max-width: 650px;
+  margin-top: 1.5rem;
+  font-size: 18px;
+  line-height: 1.6;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem 1.5rem;
+  margin-top: 2rem;
+}
+
+.sectionIntro {
+  grid-column: 1 / -1;
+  justify-self: center;
+}
+
+.principleItem {
+  composes: interactive-cell from global;
+  padding: 2rem 1rem;
+}
+
+.principleTitle {
+  margin-bottom: 0.75rem;
+}
+
+.principleBody {
+  max-width: 28rem;
+}
+
+.homeBody {
+  grid-column: 1 / -1;
+  max-width: 760px;
+  justify-self: center;
+  font-size: 18px;
+  line-height: 1.7;
+}
+
+.homeBody > * + * {
+  margin-top: 1rem;
+}
+
+.contact {
+  background-color: var(--color-fg);
+  color: var(--color-light);
+}
+
+.contactGrid {
+  composes: site-grid from global;
+  align-items: start;
+}
+
+.contactCopy,
+.formColumn {
+  grid-column: 1 / -1;
+}
+
+.contactHeading {
+  margin-top: 1rem;
+  color: var(--color-light);
+}
+
+.contactIntro {
+  max-width: 34rem;
+  margin-top: 1.5rem;
+  color: var(--color-light);
+  font-size: 18px;
+  line-height: 1.6;
+}
+
+.contact :global(.eyebrow) {
+  color: var(--color-light);
+}
+
+.formColumn {
+  margin-top: 2.5rem;
+}
+
+@media (min-width: 768px) {
+  .hero {
+    min-height: 760px;
+  }
+
+  .heroContent {
+    grid-column: 1 / span 8;
+  }
+
+  .contactCopy {
+    position: sticky;
+    top: 7rem;
+    grid-column: 1 / span 5;
+  }
+
+  .formColumn {
+    grid-column: 7 / -1;
+    margin-top: 0;
+  }
+}

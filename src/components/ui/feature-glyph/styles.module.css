@@ -1,0 +1,267 @@
+.icon {
+  display: block;
+  overflow: visible;
+}
+
+@keyframes individualRing {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  55% {
+    transform: scale(1.03);
+  }
+}
+
+@keyframes individualFill {
+  0%,
+  100% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  16% {
+    transform: scale(0.16);
+    opacity: 0.86;
+  }
+  58%,
+  74% {
+    transform: scale(1);
+    opacity: 0.86;
+  }
+  88% {
+    transform: scale(1.08);
+    opacity: 0;
+  }
+}
+
+@keyframes coupleLeft {
+  0%,
+  100% {
+    transform: translate(-6.8px, 0);
+  }
+  10% {
+    transform: translate(-2px, 0);
+    animation-timing-function: cubic-bezier(0.2, 0.9, 0.18, 1);
+  }
+  21% {
+    transform: translate(0, -6.8px);
+    animation-timing-function: cubic-bezier(0.42, 0, 0.3, 1);
+  }
+  32% {
+    transform: translate(0, -2px);
+    animation-timing-function: cubic-bezier(0.2, 0.9, 0.18, 1);
+  }
+  43% {
+    transform: translate(0, 6.8px);
+    animation-timing-function: cubic-bezier(0.42, 0, 0.3, 1);
+  }
+  56% {
+    transform: translate(6.8px, 0);
+    animation-timing-function: cubic-bezier(0.2, 0.9, 0.18, 1);
+  }
+  70% {
+    transform: translate(2px, 0);
+    animation-timing-function: cubic-bezier(0.42, 0, 0.3, 1);
+  }
+  84% {
+    transform: translate(-6.8px, 0);
+  }
+}
+
+@keyframes coupleRight {
+  0%,
+  100% {
+    transform: translate(6.8px, 0);
+  }
+  10% {
+    transform: translate(2px, 0);
+    animation-timing-function: cubic-bezier(0.2, 0.9, 0.18, 1);
+  }
+  21% {
+    transform: translate(0, 6.8px);
+    animation-timing-function: cubic-bezier(0.42, 0, 0.3, 1);
+  }
+  32% {
+    transform: translate(0, 2px);
+    animation-timing-function: cubic-bezier(0.2, 0.9, 0.18, 1);
+  }
+  43% {
+    transform: translate(0, -6.8px);
+    animation-timing-function: cubic-bezier(0.42, 0, 0.3, 1);
+  }
+  56% {
+    transform: translate(-6.8px, 0);
+    animation-timing-function: cubic-bezier(0.2, 0.9, 0.18, 1);
+  }
+  70% {
+    transform: translate(-2px, 0);
+    animation-timing-function: cubic-bezier(0.42, 0, 0.3, 1);
+  }
+  84% {
+    transform: translate(6.8px, 0);
+  }
+}
+
+@keyframes coupleBridgeX {
+  0%,
+  5%,
+  17%,
+  50%,
+  63%,
+  75%,
+  100% {
+    opacity: 0;
+    transform: scaleX(0.6);
+  }
+  8%,
+  12%,
+  58%,
+  69% {
+    opacity: 1;
+    transform: scaleX(1);
+  }
+}
+
+@keyframes coupleBridgeY {
+  0%,
+  27%,
+  39%,
+  100% {
+    opacity: 0;
+    transform: scaleY(0.6);
+  }
+  31%,
+  35% {
+    opacity: 1;
+    transform: scaleY(1);
+  }
+}
+
+@keyframes mother {
+  0% {
+    transform: rotate(0deg);
+    animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  42% {
+    transform: rotate(10deg);
+    animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  58% {
+    transform: rotate(7deg);
+    animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+@keyframes child {
+  0% {
+    transform: translateY(0);
+    animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  42% {
+    transform: translateY(-5px);
+    animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  58% {
+    transform: translateY(-3px);
+    animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+@keyframes petal {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-2.4px);
+  }
+}
+
+@keyframes quatspin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.individualRing,
+.individualFill,
+.coupleLeft,
+.coupleRight,
+.coupleBridgeX,
+.coupleBridgeY,
+.cuddleDrop,
+.cuddleCircle,
+.spinGroup,
+.petal {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.individualFill,
+.coupleBridgeX,
+.coupleBridgeY {
+  opacity: 0;
+  transform: scale(0);
+}
+
+:global(.interactive-cell):is(:hover, :focus-within) .individualRing {
+  animation: individualRing 1.55s cubic-bezier(0.42, 0, 0.3, 1) infinite;
+}
+
+:global(.interactive-cell):is(:hover, :focus-within) .individualFill {
+  animation: individualFill 1.55s cubic-bezier(0.42, 0, 0.3, 1) infinite;
+}
+
+:global(.interactive-cell):is(:hover, :focus-within) .coupleLeft {
+  animation: coupleLeft 3.7s cubic-bezier(0.42, 0, 0.3, 1) infinite;
+}
+
+:global(.interactive-cell):is(:hover, :focus-within) .coupleRight {
+  animation: coupleRight 3.7s cubic-bezier(0.42, 0, 0.3, 1) infinite;
+}
+
+:global(.interactive-cell):is(:hover, :focus-within) .coupleBridgeX {
+  animation: coupleBridgeX 3.7s cubic-bezier(0.42, 0, 0.3, 1) infinite;
+}
+
+:global(.interactive-cell):is(:hover, :focus-within) .coupleBridgeY {
+  animation: coupleBridgeY 3.7s cubic-bezier(0.42, 0, 0.3, 1) infinite;
+}
+
+:global(.interactive-cell):is(:hover, :focus-within) .cuddleDrop {
+  animation: mother 2.1s ease-in-out infinite;
+}
+
+:global(.interactive-cell):is(:hover, :focus-within) .cuddleCircle {
+  animation: child 2.1s ease-in-out infinite;
+}
+
+:global(.interactive-cell):is(:hover, :focus-within) .spinGroup {
+  animation: quatspin 4.8s linear infinite;
+}
+
+:global(.interactive-cell):is(:hover, :focus-within) .petal {
+  animation: petal 1.6s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :global(.interactive-cell):is(:hover, :focus-within) .individualRing,
+  :global(.interactive-cell):is(:hover, :focus-within) .individualFill,
+  :global(.interactive-cell):is(:hover, :focus-within) .coupleLeft,
+  :global(.interactive-cell):is(:hover, :focus-within) .coupleRight,
+  :global(.interactive-cell):is(:hover, :focus-within) .coupleBridgeX,
+  :global(.interactive-cell):is(:hover, :focus-within) .coupleBridgeY,
+  :global(.interactive-cell):is(:hover, :focus-within) .cuddleDrop,
+  :global(.interactive-cell):is(:hover, :focus-within) .cuddleCircle,
+  :global(.interactive-cell):is(:hover, :focus-within) .spinGroup,
+  :global(.interactive-cell):is(:hover, :focus-within) .petal {
+    animation: none;
+  }
+}

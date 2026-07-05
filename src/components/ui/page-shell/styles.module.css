@@ -1,0 +1,7 @@
+.root {
+  composes: content-fade-in from global;
+}
+
+.fixedHeaderOffset {
+  padding-top: 4rem;
+}

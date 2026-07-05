@@ -1,0 +1,66 @@
+.root {
+  display: block;
+}
+
+.compact {
+  padding-block: 3rem;
+}
+
+.default {
+  padding-block: 4rem;
+}
+
+.page {
+  padding-block-start: 7rem;
+  padding-block-end: 5rem;
+}
+
+.spacious {
+  padding-block: 5rem;
+}
+
+.toneDefault {
+  background: transparent;
+}
+
+.raised {
+  background-color: var(--color-surface);
+}
+
+.muted {
+  background-color: rgb(241 238 235 / 0.5);
+}
+
+.feature {
+  background-color: rgb(239 226 214 / 0.3);
+}
+
+.contrast {
+  background-color: var(--color-fg);
+  color: var(--color-bg);
+}
+
+@media (min-width: 640px) {
+  .compact {
+    padding-block: 4rem;
+  }
+
+  .default {
+    padding-block: 5rem;
+  }
+
+  .page {
+    padding-block-start: 8rem;
+    padding-block-end: 6rem;
+  }
+
+  .spacious {
+    padding-block: 7rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .spacious {
+    padding-block: 8rem;
+  }
+}
