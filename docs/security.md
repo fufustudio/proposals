@@ -16,8 +16,13 @@ screen for proposal drafts, not as a full client portal.
 - Successful access creates a signed HttpOnly cookie scoped to the matching
   `/proposals/[slug]` path.
 - Access cookies do not store the proposal password.
-- Analytics events must never include proposal titles, client names, access
-  codes, pricing, or customer identifiers.
+- Public and unauthenticated proposal surfaces must stay generic: no client
+  names, proposal titles, summaries, pricing, or timelines in `/`, access-page
+  copy, or route metadata.
+- Admin access uses a separate passcode and signed HttpOnly cookie scoped to
+  `/admin`; it does not reuse proposal passwords.
+- Analytics may run on private proposal routes, but events must never include
+  proposal titles, client names, access codes, pricing, or customer identifiers.
 
 ## Environment Boundaries
 
@@ -25,9 +30,14 @@ screen for proposal drafts, not as a full client portal.
   map.
 - `PROPOSAL_SESSION_SECRET` must be a long random server-only value in
   production.
-- Real proposal passwords, pricing, client names, and private proposal copy must
-  not be committed.
-- Local non-production runs may use the fake sample proposal fallback.
+- `ADMIN_ACCESS_CODE` and `ADMIN_SESSION_SECRET` must be configured in
+  production before `/admin` is usable.
+- Proposal passwords and admin passcodes/session secrets must not be committed.
+- User-supplied proposal copy may live in the local fixture while this app is
+  local-first, but it must remain behind the proposal access gate and out of
+  unauthenticated metadata. Reassess storage before deploying or sharing real
+  client material broadly.
+- Local non-production runs may use the sample proposal access-code fallback.
 
 ## Launch Checks
 
@@ -37,5 +47,7 @@ screen for proposal drafts, not as a full client portal.
   real proposal URL.
 - Confirm proposal detail URLs return `noindex` metadata and are absent from the
   sitemap.
+- Confirm admin URLs return `noindex` metadata, are disallowed by robots, and
+  are absent from the sitemap.
 - Review whether the eventual proposal content requires a broader privacy policy
   or client data handling note.

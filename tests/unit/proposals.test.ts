@@ -7,13 +7,36 @@ import {
   validateProposalAccessCode,
   verifyProposalAccessCookieValue,
 } from "@/server/proposal-access";
-import { getAllProposals, getProposalBySlug } from "@/features/proposals";
+import proposalsJson from "@/content/proposals.json";
+import {
+  getAllProposals,
+  getProposalBySlug,
+  validateProposals,
+} from "@/features/proposals";
 
 describe("proposal content helpers", () => {
   it("finds the demo proposal by slug", () => {
     expect(getAllProposals()).toHaveLength(1);
-    expect(getProposalBySlug("sample-proposal")?.title).toBe("Sample Proposal");
+    const proposal = getProposalBySlug("sample-proposal");
+
+    expect(proposal?.status).toBe("draft");
+    expect(proposal?.slides).toHaveLength(13);
+    expect(proposal?.slides[0]?.id).toBe("cover");
+    expect(proposal?.slides[0]?.layout).toBe("cover");
+    expect(proposal?.slides.at(-1)?.id).toBe("appendix");
+    expect(proposal?.slides.every((slide) => slide.blocks.length > 0)).toBe(
+      true,
+    );
     expect(getProposalBySlug("missing")).toBeNull();
+  });
+
+  it("validates the canonical proposal JSON fixture", () => {
+    const result = validateProposals(proposalsJson);
+
+    expect(result.ok).toBe(true);
+    if (result.ok) {
+      expect(result.value[0]?.slug).toBe("sample-proposal");
+    }
   });
 });
 

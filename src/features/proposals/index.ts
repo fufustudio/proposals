@@ -1,5 +1,12 @@
 import { proposals } from "@/content/proposals";
 
+export {
+  proposalStatusValues,
+  validateProposal,
+  validateProposals,
+} from "@/features/proposals/validation";
+export type { ProposalValidationResult } from "@/features/proposals/validation";
+
 export type ProposalStatus = "draft" | "ready" | "accepted" | "archived";
 
 export type Proposal = {
@@ -10,42 +17,84 @@ export type Proposal = {
   preparedAt: string;
   updatedAt?: string;
   summary: string;
-  sections: readonly ProposalSection[];
+  slides: readonly ProposalSlide[];
 };
 
-export type ProposalSectionTone = "default" | "feature" | "contrast";
-export type ProposalSectionFocusAlign = "start" | "center";
+export type ProposalSlideLayout =
+  | "appendix"
+  | "cover"
+  | "grid"
+  | "list"
+  | "pricing"
+  | "split"
+  | "statement"
+  | "timeline";
 
-export type ProposalSection = {
+export type ProposalSlide = {
   id: string;
   label: string;
   eyebrow?: string;
   heading: string;
   intro?: string;
-  tone?: ProposalSectionTone;
-  focusAlign?: ProposalSectionFocusAlign;
-  blocks?: readonly ProposalBlock[];
-  nextLabel?: string;
+  note?: string;
+  layout: ProposalSlideLayout;
+  blocks: readonly ProposalBlock[];
 };
 
 export type ProposalBlock =
+  | {
+      type: "cover";
+      eyebrow: string;
+      year: string;
+      preparedFor: string;
+      title: string;
+      tagline: string;
+      meta: readonly string[];
+      actionLabel: string;
+    }
   | {
       type: "text";
       body: readonly string[];
     }
   | {
-      type: "cards";
+      type: "numberedRows";
       items: readonly {
+        title: string;
+        body: string;
+      }[];
+    }
+  | {
+      type: "cards" | "pillars";
+      items: readonly {
+        kicker?: string;
         title: string;
         body?: string;
       }[];
     }
   | {
+      type: "sitemap";
+      columns: readonly {
+        title: string;
+        items: readonly string[];
+      }[];
+    }
+  | {
+      type: "workstreams";
+      items: readonly {
+        title: string;
+        body: string;
+      }[];
+    }
+  | {
       type: "timeline";
       items: readonly {
+        kicker?: string;
         label: string;
         detail?: string;
+        milestone?: string;
+        active?: boolean;
       }[];
+      meta?: string;
     }
   | {
       items: readonly {
@@ -63,15 +112,53 @@ export type ProposalBlock =
       }[];
     }
   | {
+      type: "pricing";
+      footer?: string;
+      items: readonly {
+        label: string;
+        title: string;
+        body: string;
+        price: string;
+        note?: string;
+        features: readonly string[];
+        recommended?: boolean;
+      }[];
+    }
+  | {
+      type: "priceList";
+      items: readonly {
+        title: string;
+        body: string;
+        price: string;
+      }[];
+    }
+  | {
+      type: "pricePanel";
+      eyebrow?: string;
+      price: string;
+      suffix?: string;
+      features: readonly string[];
+    }
+  | {
+      type: "steps";
+      items: readonly {
+        title: string;
+        body: string;
+      }[];
+    }
+  | {
+      type: "cta";
+      label: string;
+      href: string;
+      support?: string;
+      supportHref?: string;
+      supportLabel?: string;
+    }
+  | {
       type: "media";
       label: string;
       aspect?: "wide" | "square" | "portrait";
     };
-
-export type ProposalSectionNavItem = Pick<
-  ProposalSection,
-  "focusAlign" | "id" | "label"
->;
 
 export function getAllProposals() {
   return proposals;

@@ -1,7 +1,10 @@
 import { beforeEach, describe, expect, it } from "vitest";
 
 import { POST } from "@/app/api/proposal-access/route";
-import { proposalAccessCookieName } from "@/server/proposal-access";
+import {
+  proposalAccessCookieName,
+  safeProposalNextPath,
+} from "@/server/proposal-access";
 
 describe("POST /api/proposal-access", () => {
   beforeEach(() => {
@@ -65,6 +68,44 @@ describe("POST /api/proposal-access", () => {
     expect(res.status).toBe(303);
     expect(res.headers.get("location")).toBe("https://example.com/");
     expect(res.headers.get("set-cookie")).toBeNull();
+  });
+
+  it("does not redirect successful access back to the password page", async () => {
+    process.env.PROPOSAL_ACCESS_CODES = '{"sample-proposal":"demo"}';
+    process.env.PROPOSAL_SESSION_SECRET = "test-secret";
+
+    const res = await POST(
+      formRequest({
+        slug: "sample-proposal",
+        code: "demo",
+        next: "/proposals/sample-proposal/access?error=invalid",
+      }),
+    );
+
+    expect(res.status).toBe(303);
+    expect(res.headers.get("location")).toBe(
+      "https://example.com/proposals/sample-proposal",
+    );
+  });
+});
+
+describe("safeProposalNextPath", () => {
+  it("accepts only same-proposal detail paths and hashes", () => {
+    expect(
+      safeProposalNextPath(
+        "/proposals/sample-proposal#investment",
+        "sample-proposal",
+      ),
+    ).toBe("/proposals/sample-proposal#investment");
+    expect(
+      safeProposalNextPath(
+        "/proposals/sample-proposal/access?error=invalid",
+        "sample-proposal",
+      ),
+    ).toBe("/proposals/sample-proposal");
+    expect(safeProposalNextPath("/proposals/other", "sample-proposal")).toBe(
+      "/proposals/sample-proposal",
+    );
   });
 });
 

@@ -23,13 +23,12 @@ Selection order:
 
 - `ProposalAccessForm` owns the password form markup for proposal access.
 - `ProposalReader` maps local proposal data into the generic presentation layer.
-- `ProposalExperience` owns section progress, active-section detection, and the
-  desktop rail navigation.
-- `ProposalSection` owns viewport-paced editorial sections with optional tones
-  and next-section hints.
-- `ProposalBlockRenderer` renders generic block types: text, cards, timeline,
-  details, summary, and media placeholders.
-- `Reveal` owns subtle scroll-entry motion and respects reduced-motion settings.
+- `ProposalDeck` owns slide progress, active-slide state, hash syncing,
+  keyboard navigation, and previous/next controls for the horizontal deck.
+- `ProposalSlideBlocks` renders reusable proposal deck blocks: cover, text,
+  numbered rows, pillars, sitemap columns, workstreams, timeline, pricing,
+  add-ons, care plan, steps, disclosures, CTA, and media placeholders. Keep this
+  renderer exhaustive when adding block types.
 - Keep proposal components semantic and reusable. Add more specific components
   only after the real proposal structure repeats enough to justify them.
 

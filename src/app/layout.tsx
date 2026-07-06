@@ -1,25 +1,29 @@
 import type { Metadata } from "next";
-import { Libre_Baskerville, Manrope, IBM_Plex_Mono } from "next/font/google";
+import {
+  Hanken_Grotesk,
+  Instrument_Serif,
+  JetBrains_Mono,
+} from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
 import { metadataBase, pageMetadata } from "@/lib/seo";
 
-const baskerville = Libre_Baskerville({
-  variable: "--font-baskerville",
+const instrumentSerif = Instrument_Serif({
+  variable: "--font-instrument-serif",
   subsets: ["latin"],
-  weight: ["400", "700"],
+  weight: "400",
   style: ["normal", "italic"],
 });
 
-const manrope = Manrope({
-  variable: "--font-manrope",
+const hankenGrotesk = Hanken_Grotesk({
+  variable: "--font-hanken-grotesk",
   subsets: ["latin"],
-  weight: ["500", "600"],
+  weight: ["400", "500", "600", "700"],
 });
 
-const plexMono = IBM_Plex_Mono({
-  variable: "--font-plex-mono",
+const jetBrainsMono = JetBrains_Mono({
+  variable: "--font-jetbrains-mono",
   subsets: ["latin"],
   weight: ["400", "500"],
 });
@@ -40,7 +44,7 @@ export default async function RootLayout({
   return (
     <html
       lang="en"
-      className={`${baskerville.variable} ${manrope.variable} ${plexMono.variable} antialiased`}
+      className={`${instrumentSerif.variable} ${hankenGrotesk.variable} ${jetBrainsMono.variable} antialiased`}
     >
       <body>
         {children}

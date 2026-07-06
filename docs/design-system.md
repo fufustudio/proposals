@@ -21,7 +21,7 @@ Do not scale font size directly with viewport width. Keep letter spacing at `0` 
 
 ## Layout
 
-Default composition:
+Default public-page composition:
 
 ```tsx
 <Section size="default" tone="default">
@@ -40,6 +40,11 @@ Default composition:
   substitute for route-local CSS or new repeated recipes.
 
 Use `docs/component-registry.md` with `docs/design-to-site.md` when translating a design into proposal primitives.
+
+Proposal detail pages use the horizontal `ProposalDeck` experience instead of
+the public-page section stack. Keep deck navigation limited to previous/next
+buttons plus Arrow and Space keyboard shortcuts unless a future design explicitly
+adds jump navigation.
 
 ## Buttons And Links
 

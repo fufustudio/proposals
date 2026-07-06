@@ -1,5 +1,5 @@
 import { createHmac, timingSafeEqual } from "node:crypto";
-import { proposalPath } from "@/features/proposals";
+import { proposalAccessPath, proposalPath } from "@/features/proposals";
 
 export type ProposalAccessConfig = {
   codes: Readonly<Record<string, string>>;
@@ -174,11 +174,12 @@ export function safeProposalNextPath(next: string, slug: string) {
   try {
     const parsed = new URL(next, "https://fufu.local");
     const proposalBase = proposalPath(slug);
+    const accessPath = proposalAccessPath(slug);
     const isProposalPath =
       parsed.pathname === proposalBase ||
       parsed.pathname.startsWith(`${proposalBase}/`);
 
-    if (!isProposalPath) return fallback;
+    if (!isProposalPath || parsed.pathname === accessPath) return fallback;
 
     return `${parsed.pathname}${parsed.search}${parsed.hash}`;
   } catch {

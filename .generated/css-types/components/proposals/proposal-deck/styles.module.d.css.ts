@@ -1,0 +1,25 @@
+declare const styles: {
+  readonly blocks: string;
+  readonly composition: string;
+  readonly copy: string;
+  readonly divider: string;
+  readonly folio: string;
+  readonly footer: string;
+  readonly header: string;
+  readonly headerMeta: string;
+  readonly inner: string;
+  readonly intro: string;
+  readonly markerButton: string;
+  readonly markerList: string;
+  readonly markerNav: string;
+  readonly navButton: string;
+  readonly note: string;
+  readonly progressTrack: string;
+  readonly progressValue: string;
+  readonly root: string;
+  readonly slide: string;
+  readonly track: string;
+  readonly viewport: string;
+  readonly wordmark: string;
+};
+export = styles;

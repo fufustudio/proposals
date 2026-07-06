@@ -23,8 +23,6 @@ export const SITE_SETTINGS = {
   sameAs: [],
 } as const satisfies SiteSettings;
 
-export const MAIN_NAV = [
-  { label: "Sample", href: "/proposals/sample-proposal" },
-] as const satisfies readonly NavItem[];
+export const MAIN_NAV = [] as const satisfies readonly NavItem[];
 
 export const FOOTER_NAV = [] as const satisfies readonly NavItem[];

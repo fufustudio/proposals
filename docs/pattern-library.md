@@ -33,29 +33,56 @@ type PatternAction = {
 
 Proposal data types live in `src/features/proposals/index.ts`.
 
-Current proposal section data is intentionally generic:
+Current proposal slide data is intentionally deck-oriented:
 
 ```ts
-type ProposalSection = {
+type ProposalSlide = {
   id: string;
   label: string;
   eyebrow?: string;
   heading: string;
   intro?: string;
-  tone?: "default" | "feature" | "contrast";
-  blocks?: ProposalBlock[];
-  nextLabel?: string;
+  note?: string;
+  layout:
+    | "cover"
+    | "split"
+    | "statement"
+    | "grid"
+    | "list"
+    | "timeline"
+    | "pricing"
+    | "appendix";
+  blocks: ProposalBlock[];
 };
 
 type ProposalBlock =
+  | { type: "cover"; title: string; tagline: string; actionLabel: string }
   | { type: "text"; body: string[] }
-  | { type: "cards"; items: { title: string; body?: string }[] }
-  | { type: "timeline"; items: { label: string; detail?: string }[] }
-  | { type: "details"; items: { label: string; detail?: string }[] }
+  | { type: "numberedRows"; items: { title: string; body: string }[] }
   | {
-      type: "summary";
-      items: { label: string; value: string; detail?: string }[];
+      type: "pillars";
+      items: { kicker?: string; title: string; body?: string }[];
     }
+  | { type: "sitemap"; columns: { title: string; items: string[] }[] }
+  | { type: "workstreams"; items: { title: string; body: string }[] }
+  | {
+      type: "timeline";
+      items: {
+        kicker?: string;
+        label: string;
+        detail?: string;
+        milestone?: string;
+      }[];
+    }
+  | { type: "pricing"; items: PricingOption[] }
+  | {
+      type: "priceList";
+      items: { title: string; body: string; price: string }[];
+    }
+  | { type: "pricePanel"; price: string; suffix?: string; features: string[] }
+  | { type: "steps"; items: { title: string; body: string }[] }
+  | { type: "details"; items: { label: string; detail?: string }[] }
+  | { type: "cta"; label: string; href: string }
   | { type: "media"; label: string; aspect?: "wide" | "square" | "portrait" };
 ```
 

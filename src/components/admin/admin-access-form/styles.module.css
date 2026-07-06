@@ -1,0 +1,13 @@
+.form {
+  display: grid;
+  gap: 1.25rem;
+  width: min(100%, 28rem);
+}
+
+.field {
+  width: 100%;
+}
+
+.button {
+  width: fit-content;
+}

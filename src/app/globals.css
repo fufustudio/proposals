@@ -7,32 +7,32 @@
    so a new direction means new values here and nothing else.
    ============================================================ */
 @theme {
-  --color-bg: #eae6dd; /* page background */
-  --color-fg: #3a232a; /* headings and dark bands */
-  --color-body: #40383a; /* body copy (softer than fg) */
+  --color-bg: #f6f2ea; /* page background */
+  --color-fg: #1c1a15; /* headings and dark bands */
+  --color-body: #3a372f; /* body copy (softer than fg) */
   --color-surface: #fbf8f1; /* cards / raised panels */
-  --color-muted: rgb(241 238 235 / 0.9); /* hairline borders, card edges */
-  --color-accent: #6f2e39; /* links, eyebrows, emphasis */
-  --color-accent-soft: #e3c7cb; /* selection and subtle fills */
-  --color-feature: #efe2d6; /* warm feature band */
-  --color-light: #fffaf4; /* type on dark / image bands */
-  --color-cream: #e5ded9; /* alternate cream text / translucent overlays */
-  --color-icon: #c79da4; /* feature icon accents */
-  --color-field-surface: #2a2025;
-  --color-field-surface-focus: #21191d;
-  --color-button-primary-hover: #52333b;
-  --color-nav-surface-overlay: #e5ded9;
-  --color-interactive-hover: rgb(241 238 235 / 0.24);
+  --color-muted: rgb(28 26 21 / 0.14); /* hairline borders, card edges */
+  --color-accent: #925335; /* links, eyebrows, emphasis */
+  --color-accent-soft: #ead9ce; /* selection and subtle fills */
+  --color-feature: #efe8dc; /* warm feature band */
+  --color-light: #f6f2ea; /* type on dark / image bands */
+  --color-cream: #eee6da; /* alternate cream text / translucent overlays */
+  --color-icon: #b98465; /* feature icon accents */
+  --color-field-surface: #fffaf2;
+  --color-field-surface-focus: #fffdf8;
+  --color-button-primary-hover: #3a3328;
+  --color-nav-surface-overlay: #f6f2ea;
+  --color-interactive-hover: rgb(28 26 21 / 0.06);
 
-  --font-heading: var(--font-baskerville);
-  --font-body: var(--font-baskerville);
-  --font-sans: var(--font-manrope);
-  --font-mono: var(--font-plex-mono);
+  --font-heading: var(--font-instrument-serif);
+  --font-body: var(--font-hanken-grotesk);
+  --font-sans: var(--font-hanken-grotesk);
+  --font-mono: var(--font-jetbrains-mono);
   --radius-btn: 9999px;
   --radius-card: 8px;
   --radius-media: 8px;
   --radius-panel: 8px;
-  --shadow-card: 0 24px 60px rgb(58 35 42 / 0.08);
+  --shadow-card: 0 30px 60px rgb(20 18 14 / 0.1);
   --space-section-compact: clamp(3rem, 7vw, 4rem);
   --space-section-default: clamp(4rem, 8vw, 5rem);
   --space-section-spacious: clamp(5rem, 10vw, 8rem);
@@ -43,7 +43,7 @@
   body {
     background-color: var(--color-bg);
     color: var(--color-body);
-    font-family: var(--font-body), Georgia, serif;
+    font-family: var(--font-body), system-ui, sans-serif;
     font-size: 16px;
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;
@@ -65,10 +65,10 @@
   }
 
   h1 {
-    font-size: clamp(2.6rem, 7vw, 66px);
+    font-size: clamp(2.6rem, 7vw, 72px);
   }
   h2 {
-    font-size: clamp(2rem, 5.5vw, 44px);
+    font-size: clamp(2.25rem, 5.5vw, 64px);
   }
   h3 {
     font-size: clamp(1.25rem, 3vw, 24px);

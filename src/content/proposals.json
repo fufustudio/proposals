@@ -1,0 +1,424 @@
+[
+  {
+    "slug": "sample-proposal",
+    "title": "Marl & Stone Website & Commerce Proposal",
+    "clientLabel": "Marl & Stone",
+    "status": "draft",
+    "preparedAt": "2026-06-01",
+    "updatedAt": "2026-07-05",
+    "summary": "A draft Fufu Studio website and commerce proposal presented as a horizontal editorial deck.",
+    "slides": [
+      {
+        "id": "cover",
+        "label": "Cover",
+        "eyebrow": "Website & Commerce Proposal",
+        "heading": "Marl & Stone",
+        "layout": "cover",
+        "blocks": [
+          {
+            "type": "cover",
+            "eyebrow": "Website & Commerce Proposal",
+            "year": "MMXXVI",
+            "preparedFor": "Prepared for",
+            "title": "Marl & Stone",
+            "tagline": "A home worthy of the work.",
+            "meta": ["Prepared by Fufu Studio", "June 2026 - 6 min read"],
+            "actionLabel": "Begin"
+          }
+        ]
+      },
+      {
+        "id": "why",
+        "label": "Why this project",
+        "eyebrow": "Why now",
+        "heading": "Marl & Stone has outgrown the places it lives.",
+        "layout": "split",
+        "blocks": [
+          {
+            "type": "text",
+            "body": [
+              "Six years of markets, wholesale accounts, and a quiet, growing waitlist. In person the pieces sell themselves - but online, the brand is spread thin across a linktree, an inbox, and a template that was never built to carry it.",
+              "This project is about giving the work a proper home: one that sells directly, tells the story behind each piece, and has room to grow as you do."
+            ]
+          }
+        ]
+      },
+      {
+        "id": "noticed",
+        "label": "What we noticed",
+        "eyebrow": "What we noticed",
+        "heading": "None of them problems - all of them openings.",
+        "layout": "list",
+        "blocks": [
+          {
+            "type": "numberedRows",
+            "items": [
+              {
+                "title": "The catalogue is scattered.",
+                "body": "Collections live across Instagram, a linktree, and a stock theme. The full range is hard to see in one place."
+              },
+              {
+                "title": "The photography deserves more room.",
+                "body": "The product shots are genuinely beautiful. The current layout crops and shrinks them until they stop working."
+              },
+              {
+                "title": "Two audiences, one door.",
+                "body": "Wholesale buyers and retail customers follow the same path today - and it serves neither of them cleanly."
+              },
+              {
+                "title": "The maker story is missing.",
+                "body": "What people fall for in person - the hands, the kiln, the honest imperfection - is not anywhere on the site."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "opportunity",
+        "label": "The opportunity",
+        "eyebrow": "The opportunity",
+        "heading": "Sell the way the work deserves to be seen.",
+        "intro": "Imagine a site that feels like holding the piece - editorial, unhurried, tactile - with a checkout that never gets in the way. Retail and wholesale each get their own clear path. The story does the selling; the commerce simply works.",
+        "layout": "split",
+        "blocks": [
+          {
+            "type": "media",
+            "label": "Editorial product shot",
+            "aspect": "portrait"
+          }
+        ]
+      },
+      {
+        "id": "recommended",
+        "label": "Recommended direction",
+        "eyebrow": "Our recommendation",
+        "heading": "The Studio Engagement",
+        "intro": "A complete, end-to-end partnership - sized for a brand at an inflection point, not a template swap.",
+        "layout": "statement",
+        "blocks": [
+          {
+            "type": "pillars",
+            "items": [
+              {
+                "kicker": "A.",
+                "title": "Strategy-led",
+                "body": "We decide what the site must do before we design a single screen."
+              },
+              {
+                "kicker": "B.",
+                "title": "Design-obsessed",
+                "body": "Every detail earns its place - the way your best pieces do."
+              },
+              {
+                "kicker": "C.",
+                "title": "Built to grow",
+                "body": "A CMS and commerce base your team can run without us."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "direction",
+        "label": "Likely direction",
+        "eyebrow": "A likely shape",
+        "heading": "Where things might live.",
+        "note": "Directional - validated in the strategy phase",
+        "layout": "grid",
+        "blocks": [
+          {
+            "type": "sitemap",
+            "columns": [
+              {
+                "title": "Home",
+                "items": ["Landing", "Featured"]
+              },
+              {
+                "title": "Shop",
+                "items": ["Collections", "All pieces", "Sets & bundles"]
+              },
+              {
+                "title": "The Studio",
+                "items": ["Our story", "The process", "The makers"]
+              },
+              {
+                "title": "Wholesale",
+                "items": ["Line sheet", "Apply"]
+              },
+              {
+                "title": "Journal",
+                "items": ["Notes", "Field guides"]
+              },
+              {
+                "title": "Contact",
+                "items": ["Enquiries", "Stockists"]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "included",
+        "label": "What's included",
+        "eyebrow": "What's included",
+        "heading": "Six workstreams, one team.",
+        "layout": "grid",
+        "blocks": [
+          {
+            "type": "workstreams",
+            "items": [
+              {
+                "title": "Strategy & Positioning",
+                "body": "Goals, audiences, and the story the site needs to tell."
+              },
+              {
+                "title": "Brand-aligned Design",
+                "body": "Art direction, page design, and a system your brand can live in."
+              },
+              {
+                "title": "Front-end Development",
+                "body": "Fast, responsive build with the polish designed into it."
+              },
+              {
+                "title": "CMS & Content Model",
+                "body": "A structure your team can update without touching code."
+              },
+              {
+                "title": "Commerce & Checkout",
+                "body": "Retail and wholesale flows, set up to convert calmly."
+              },
+              {
+                "title": "Launch & Handoff",
+                "body": "QA, migration, go-live, and a team that knows how to drive it."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "timeline",
+        "label": "Process & timeline",
+        "eyebrow": "How we work",
+        "heading": "Kickoff to launch, in about ten weeks.",
+        "note": "~ 10 weeks",
+        "layout": "timeline",
+        "blocks": [
+          {
+            "type": "timeline",
+            "items": [
+              {
+                "kicker": "Phase 01 - 2 wks",
+                "label": "Discovery & Strategy",
+                "detail": "Interviews, audit, positioning, and a validated sitemap.",
+                "milestone": "Strategy sign-off",
+                "active": true
+              },
+              {
+                "kicker": "Phase 02 - 3 wks",
+                "label": "Design",
+                "detail": "Art direction, key pages, and the full design system.",
+                "milestone": "Design approval"
+              },
+              {
+                "kicker": "Phase 03 - 4 wks",
+                "label": "Build",
+                "detail": "Development, CMS, commerce, content, and QA.",
+                "milestone": "Weekly check-ins"
+              },
+              {
+                "kicker": "Phase 04 - 1 wk",
+                "label": "Launch",
+                "detail": "Migration, go-live, and a working handoff session.",
+                "milestone": "Go-live"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "investment",
+        "label": "Investment",
+        "eyebrow": "Investment",
+        "heading": "Three ways to work together.",
+        "intro": "Same studio, same standards - scoped to where you are today.",
+        "layout": "pricing",
+        "blocks": [
+          {
+            "type": "pricing",
+            "footer": "Every engagement follows a 40 / 30 / 30 payment schedule - deposit, design approval, launch. Not sure which? We'll recommend one on our call.",
+            "items": [
+              {
+                "label": "Option A",
+                "title": "The Refresh",
+                "body": "A refined build on a proven foundation - a strong home, live sooner.",
+                "price": "$32,000",
+                "note": "fixed fee - exclusive of tax",
+                "features": [
+                  "Strategy-lite kickoff",
+                  "Brand-aligned design",
+                  "Front-end build",
+                  "CMS & content model",
+                  "Standard commerce setup"
+                ]
+              },
+              {
+                "label": "Option B",
+                "title": "The Studio Engagement",
+                "body": "Our recommended, end-to-end partnership for a brand at an inflection point.",
+                "price": "$48,000",
+                "note": "fixed fee - exclusive of tax",
+                "features": [
+                  "All six workstreams",
+                  "Dedicated project management",
+                  "Two rounds of revision per phase",
+                  "30 days of post-launch support"
+                ],
+                "recommended": true
+              },
+              {
+                "label": "Option C",
+                "title": "The Flagship",
+                "body": "Everything in the Studio Engagement, with the extras built in.",
+                "price": "$68,000",
+                "note": "fixed fee - exclusive of tax",
+                "features": [
+                  "Everything in Option B",
+                  "Photography & art direction",
+                  "Copywriting & brand voice",
+                  "Wholesale portal, built in"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "addons",
+        "label": "Optional add-ons",
+        "eyebrow": "Optional add-ons",
+        "heading": "Expand it when you're ready.",
+        "intro": "The core project stands on its own.",
+        "layout": "list",
+        "blocks": [
+          {
+            "type": "priceList",
+            "items": [
+              {
+                "title": "Photography & Art Direction",
+                "body": "A dedicated shoot, styled and directed for the new site.",
+                "price": "+ $8,000"
+              },
+              {
+                "title": "Copywriting & Brand Voice",
+                "body": "Every page written with you, in a voice that's unmistakably yours.",
+                "price": "+ $5,500"
+              },
+              {
+                "title": "Email & Klaviyo Setup",
+                "body": "Welcome, abandoned-cart, and post-purchase flows, ready to send.",
+                "price": "+ $4,000"
+              },
+              {
+                "title": "Wholesale Portal",
+                "body": "A gated line-sheet and reordering experience for stockists.",
+                "price": "+ $9,500"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "care-plan",
+        "label": "Care plan",
+        "eyebrow": "After launch",
+        "heading": "The Care Plan.",
+        "intro": "Launch is a beginning, not a finish line. The Care Plan keeps the studio close - hosting handled, monthly improvements, and priority access when something new comes up.",
+        "note": "Optional. Most partners stay because they want to keep building - not because something's broken.",
+        "layout": "split",
+        "blocks": [
+          {
+            "type": "pricePanel",
+            "eyebrow": "From",
+            "price": "$1,200",
+            "suffix": "/mo",
+            "features": [
+              "Hosting & monitoring",
+              "Monthly design & dev hours",
+              "Priority studio access",
+              "Seasonal content support"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "next-steps",
+        "label": "Next steps",
+        "eyebrow": "What happens next",
+        "heading": "Four steps to week one.",
+        "layout": "grid",
+        "blocks": [
+          {
+            "type": "steps",
+            "items": [
+              {
+                "title": "Approve this direction",
+                "body": "A quick call to align and answer questions."
+              },
+              {
+                "title": "Sign the SOW & PSA",
+                "body": "We send both documents for signature."
+              },
+              {
+                "title": "Deposit & kickoff",
+                "body": "Deposit invoice and a scheduled kickoff."
+              },
+              {
+                "title": "We begin",
+                "body": "Week one of Discovery starts."
+              }
+            ]
+          },
+          {
+            "type": "cta",
+            "label": "Approve & start",
+            "href": "mailto:hello@fufu.studio?subject=Marl%20%26%20Stone%20-%20Approve%20direction",
+            "support": "Questions?",
+            "supportHref": "mailto:hello@fufu.studio",
+            "supportLabel": "hello@fufu.studio"
+          }
+        ]
+      },
+      {
+        "id": "appendix",
+        "label": "Appendix",
+        "eyebrow": "Appendix",
+        "heading": "The fine print, folded away.",
+        "note": "Thank you for reading. - Fufu Studio",
+        "layout": "appendix",
+        "blocks": [
+          {
+            "type": "details",
+            "items": [
+              {
+                "label": "Assumptions",
+                "detail": "Timeline assumes timely feedback within agreed review windows, availability of brand assets and product data, and a single, empowered point of contact on your side."
+              },
+              {
+                "label": "Exclusions",
+                "detail": "Ongoing marketing, paid media, net-new photography unless added, and third-party platform fees are not included in the project fee."
+              },
+              {
+                "label": "Third-party costs & tools",
+                "detail": "Platform, hosting, and app subscriptions, such as Shopify, CMS, and email, are billed directly to you at cost. We'll recommend and set them up."
+              },
+              {
+                "label": "Legal",
+                "detail": "This proposal is a presentation of our recommendation. The signed Statement of Work and Professional Services Agreement are the source of truth and govern the engagement."
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]

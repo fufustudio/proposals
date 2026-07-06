@@ -1,0 +1,43 @@
+.root {
+  display: flex;
+  min-height: 100svh;
+  align-items: center;
+  background: var(--color-feature);
+}
+
+.grid {
+  composes: site-grid from global;
+  align-items: center;
+  width: 100%;
+  padding-block: 4rem;
+}
+
+.copy,
+.formPanel {
+  grid-column: 1 / -1;
+}
+
+.copy {
+  display: grid;
+  gap: 1rem;
+  max-width: 36rem;
+}
+
+.formPanel {
+  display: grid;
+  justify-items: start;
+  padding: 1.25rem;
+  border: 1px solid var(--color-muted);
+  border-radius: var(--radius-panel);
+  background: color-mix(in srgb, var(--color-surface) 76%, transparent);
+}
+
+@media (min-width: 860px) {
+  .copy {
+    grid-column: 1 / span 6;
+  }
+
+  .formPanel {
+    grid-column: 8 / -1;
+  }
+}

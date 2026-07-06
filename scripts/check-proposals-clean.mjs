@@ -19,10 +19,7 @@ const forbidden = [
   "clientsecure",
   "SimplePractice",
   "8l26et78",
-  "fufu.studio",
   "admin@fufu.studio",
-  "hello@fufu.studio",
-  "Fufu <hello@fufu.studio>",
 ];
 
 const ignoredGlobs = [

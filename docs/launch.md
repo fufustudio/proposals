@@ -11,12 +11,14 @@
 
 ## Vercel Environment Variables
 
-| Variable                   | Required | Example                      | Notes                                               |
-| -------------------------- | -------- | ---------------------------- | --------------------------------------------------- |
-| `NEXT_PUBLIC_SITE_URL`     | Yes      | `https://proposals.example`  | Used for metadata, canonicals, sitemap, and robots. |
-| `PROPOSAL_ACCESS_CODES`    | Yes      | `{"sample-proposal":"demo"}` | Server-only JSON map of slug to password.           |
-| `PROPOSAL_SESSION_SECRET`  | Yes      | long random secret           | Server-only signing secret for access cookies.      |
-| `GOOGLE_SITE_VERIFICATION` | Optional | token                        | Search Console verification for the public index.   |
+| Variable                   | Required | Example                      | Notes                                                |
+| -------------------------- | -------- | ---------------------------- | ---------------------------------------------------- |
+| `NEXT_PUBLIC_SITE_URL`     | Yes      | `https://proposals.example`  | Used for metadata, canonicals, sitemap, and robots.  |
+| `PROPOSAL_ACCESS_CODES`    | Yes      | `{"sample-proposal":"demo"}` | Server-only JSON map of slug to password.            |
+| `PROPOSAL_SESSION_SECRET`  | Yes      | long random secret           | Server-only signing secret for access cookies.       |
+| `ADMIN_ACCESS_CODE`        | Yes      | long private passcode        | Server-only passcode for `/admin`.                   |
+| `ADMIN_SESSION_SECRET`     | Yes      | long random secret           | Server-only signing secret for admin access cookies. |
+| `GOOGLE_SITE_VERIFICATION` | Optional | token                        | Search Console verification for the public index.    |
 
 Redeploy after adding or changing any Vercel env var.
 
@@ -26,6 +28,6 @@ Redeploy after adding or changing any Vercel env var.
 - Run `npm run verify:proposal`.
 - Run `npm run verify:handoff` when Playwright browser checks are required.
 - Confirm `/`, `/sitemap.xml`, `/robots.txt`, and `/opengraph-image` load.
-- Confirm `/robots.txt` disallows `/proposals/`.
+- Confirm `/robots.txt` disallows `/admin/` and `/proposals/`.
 - Confirm proposal access works with production env vars.
 - Confirm no real passwords or proposal details are committed in local fixtures.
