@@ -3,7 +3,10 @@ import "server-only";
 import type { Route } from "next";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
-import { proposalAccessPath, proposalPath } from "@/features/proposals/paths";
+import {
+  proposalAccessPath,
+  proposalPath,
+} from "@/page-modules/proposals/paths";
 import {
   getProposalAccessConfig,
   proposalAccessCookieName,

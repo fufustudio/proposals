@@ -30,7 +30,7 @@ type PatternAction = {
 };
 ```
 
-Proposal data types live in `src/features/proposals/types.ts`; client-safe route
+Proposal data types live in `src/page-modules/proposals/types.ts`; client-safe route
 helpers live in `paths.ts`, and server-only reads live in `repository.ts`.
 
 Current proposal slide data is intentionally deck-oriented:

@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { ProposalJsonEditor } from "@/components/admin/proposal-json-editor";
-import { proposalPath } from "@/features/proposals/paths";
-import { getProposalBySlug } from "@/features/proposals/repository";
+import { ProposalJsonViewer } from "@/components/admin/proposal-json-viewer";
+import { proposalPath } from "@/page-modules/proposals/paths";
+import { getProposalBySlug } from "@/page-modules/proposals/repository";
 import { pageMetadata } from "@/config/seo";
 import {
   adminProposalEditorPath,
@@ -39,7 +39,7 @@ export default async function AdminProposalPage({
   if (!proposal) notFound();
 
   return (
-    <ProposalJsonEditor
+    <ProposalJsonViewer
       proposal={proposal}
       canonicalJson={`${JSON.stringify(proposal, null, 2)}\n`}
       proposalUrl={proposalPath(proposal.slug)}

@@ -51,12 +51,13 @@ Use Node.js 22 and npm 10, matching `package.json`, `.node-version`, and CI.
 
 - Keep pages thin: routes compose local content helpers, shared chrome,
   proposal components, and UI primitives.
-- Proposal content lives in `src/content/proposals.ts` until the real content
-  source is decided.
+- Proposal content lives in validated `src/content/proposals.json`.
+- `src/content/proposals.ts` is the server-only loader; routes and components
+  must not import proposal JSON directly.
 - Client-safe proposal types and paths live in
-  `src/features/proposals/{types,paths}.ts`.
+  `src/page-modules/proposals/{types,paths}.ts`.
 - Proposal fixture reads live in the server-only
-  `src/features/proposals/repository.ts`.
+  `src/page-modules/proposals/repository.ts`.
 - Access-code parsing, validation, signing, and cookie verification live in
   `src/server/proposal-access.ts`.
 - Proposal request gating lives in `src/server/proposal-access-gate.ts`; keep

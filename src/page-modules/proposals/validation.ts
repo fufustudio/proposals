@@ -1,4 +1,9 @@
-import type { Proposal } from "@/features/proposals/types";
+import type {
+  Proposal,
+  ProposalBlock,
+  ProposalSlideLayout,
+  ProposalStatus,
+} from "@/page-modules/proposals/types";
 
 type ValidationOk<T> = {
   ok: true;
@@ -20,7 +25,7 @@ export const proposalStatusValues = [
   "ready",
   "accepted",
   "archived",
-] as const;
+] as const satisfies readonly ProposalStatus[];
 
 const slideLayoutValues = [
   "appendix",
@@ -31,7 +36,7 @@ const slideLayoutValues = [
   "split",
   "statement",
   "timeline",
-] as const;
+] as const satisfies readonly ProposalSlideLayout[];
 
 const mediaAspectValues = ["wide", "square", "portrait"] as const;
 
@@ -52,7 +57,29 @@ const blockTypeValues = [
   "text",
   "timeline",
   "workstreams",
-] as const;
+] as const satisfies readonly ProposalBlock["type"][];
+
+type AllValuesCovered<
+  Expected extends string,
+  Actual extends readonly string[],
+> = Exclude<Expected, Actual[number]> extends never ? true : never;
+
+const allProposalStatusesCovered: AllValuesCovered<
+  ProposalStatus,
+  typeof proposalStatusValues
+> = true;
+const allSlideLayoutsCovered: AllValuesCovered<
+  ProposalSlideLayout,
+  typeof slideLayoutValues
+> = true;
+const allBlockTypesCovered: AllValuesCovered<
+  ProposalBlock["type"],
+  typeof blockTypeValues
+> = true;
+
+void allProposalStatusesCovered;
+void allSlideLayoutsCovered;
+void allBlockTypesCovered;
 
 export function validateProposal(value: unknown): ProposalValidationResult {
   const errors: string[] = [];
@@ -70,10 +97,13 @@ export function validateProposals(
 
   if (!Array.isArray(value)) {
     errors.push("proposals must be an array.");
+  } else if (!value.length) {
+    errors.push("proposals must contain at least one proposal.");
   } else {
     value.forEach((proposal, index) => {
       validateProposalObject(proposal, `proposals[${index}]`, errors);
     });
+    validateUniqueStrings(value, "slug", "proposals", errors);
   }
 
   return errors.length
@@ -105,22 +135,27 @@ function validateProposalObject(
     return;
   }
 
-  requireString(value, "slug", path, errors);
+  requireSlug(value, "slug", path, errors);
   requireString(value, "title", path, errors);
   requireString(value, "clientLabel", path, errors);
   requireEnum(value, "status", path, proposalStatusValues, errors);
-  requireString(value, "preparedAt", path, errors);
-  optionalString(value, "updatedAt", path, errors);
+  requireDate(value, "preparedAt", path, errors);
+  optionalDate(value, "updatedAt", path, errors);
   requireString(value, "summary", path, errors);
 
   if (!Array.isArray(value.slides)) {
     errors.push(`${path}.slides must be an array.`);
     return;
   }
+  if (!value.slides.length) {
+    errors.push(`${path}.slides must contain at least one slide.`);
+    return;
+  }
 
   value.slides.forEach((slide, index) =>
     validateSlide(slide, `${path}.slides[${index}]`, errors),
   );
+  validateUniqueStrings(value.slides, "id", `${path}.slides`, errors);
 }
 
 function validateSlide(value: unknown, path: string, errors: string[]) {
@@ -139,6 +174,10 @@ function validateSlide(value: unknown, path: string, errors: string[]) {
 
   if (!Array.isArray(value.blocks)) {
     errors.push(`${path}.blocks must be an array.`);
+    return;
+  }
+  if (!value.blocks.length) {
+    errors.push(`${path}.blocks must contain at least one block.`);
     return;
   }
 
@@ -250,9 +289,9 @@ function validateBlock(value: unknown, path: string, errors: string[]) {
       return;
     case "cta":
       requireString(value, "label", path, errors);
-      requireString(value, "href", path, errors);
+      requireHref(value, "href", path, errors);
       optionalString(value, "support", path, errors);
-      optionalString(value, "supportHref", path, errors);
+      optionalHref(value, "supportHref", path, errors);
       optionalString(value, "supportLabel", path, errors);
       return;
     case "media":
@@ -277,6 +316,59 @@ function requireString(
   }
 }
 
+function requireSlug(
+  record: Record<string, unknown>,
+  key: string,
+  path: string,
+  errors: string[],
+) {
+  requireString(record, key, path, errors);
+
+  if (
+    typeof record[key] === "string" &&
+    !/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(record[key])
+  ) {
+    errors.push(
+      `${path}.${key} must use lowercase letters, numbers, and single hyphens.`,
+    );
+  }
+}
+
+function requireDate(
+  record: Record<string, unknown>,
+  key: string,
+  path: string,
+  errors: string[],
+) {
+  requireString(record, key, path, errors);
+
+  if (typeof record[key] === "string" && !isIsoDate(record[key])) {
+    errors.push(`${path}.${key} must be a valid YYYY-MM-DD date.`);
+  }
+}
+
+function optionalDate(
+  record: Record<string, unknown>,
+  key: string,
+  path: string,
+  errors: string[],
+) {
+  optionalString(record, key, path, errors);
+
+  if (typeof record[key] === "string" && !isIsoDate(record[key])) {
+    errors.push(`${path}.${key} must be a valid YYYY-MM-DD date.`);
+  }
+}
+
+function isIsoDate(value: string) {
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(value)) return false;
+
+  const date = new Date(`${value}T00:00:00.000Z`);
+  return (
+    !Number.isNaN(date.valueOf()) && date.toISOString().slice(0, 10) === value
+  );
+}
+
 function optionalString(
   record: Record<string, unknown>,
   key: string,
@@ -285,6 +377,46 @@ function optionalString(
 ) {
   if (record[key] !== undefined && typeof record[key] !== "string") {
     errors.push(`${path}.${key} must be a string when provided.`);
+  }
+}
+
+function requireHref(
+  record: Record<string, unknown>,
+  key: string,
+  path: string,
+  errors: string[],
+) {
+  requireString(record, key, path, errors);
+
+  if (typeof record[key] === "string" && !isSupportedHref(record[key])) {
+    errors.push(
+      `${path}.${key} must be an https, mailto, tel, root-relative, or hash URL.`,
+    );
+  }
+}
+
+function optionalHref(
+  record: Record<string, unknown>,
+  key: string,
+  path: string,
+  errors: string[],
+) {
+  optionalString(record, key, path, errors);
+
+  if (typeof record[key] === "string" && !isSupportedHref(record[key])) {
+    errors.push(
+      `${path}.${key} must be an https, mailto, tel, root-relative, or hash URL.`,
+    );
+  }
+}
+
+function isSupportedHref(value: string) {
+  if (value.startsWith("/") || value.startsWith("#")) return true;
+
+  try {
+    return ["https:", "mailto:", "tel:"].includes(new URL(value).protocol);
+  } catch {
+    return false;
   }
 }
 
@@ -331,9 +463,12 @@ function requireStringArray(
 ) {
   if (
     !Array.isArray(record[key]) ||
-    !(record[key] as unknown[]).every((item) => typeof item === "string")
+    !(record[key] as unknown[]).length ||
+    !(record[key] as unknown[]).every(
+      (item) => typeof item === "string" && item.length > 0,
+    )
   ) {
-    errors.push(`${path}.${key} must be an array of strings.`);
+    errors.push(`${path}.${key} must be a non-empty array of strings.`);
   }
 }
 
@@ -348,6 +483,10 @@ function requireObjectArray(
     errors.push(`${path}.${key} must be an array.`);
     return;
   }
+  if (!record[key].length) {
+    errors.push(`${path}.${key} must contain at least one item.`);
+    return;
+  }
 
   record[key].forEach((item, index) => {
     const itemPath = `${path}.${key}[${index}]`;
@@ -358,5 +497,28 @@ function requireObjectArray(
     }
 
     validateItem(item, itemPath);
+  });
+}
+
+function validateUniqueStrings(
+  values: readonly unknown[],
+  key: string,
+  path: string,
+  errors: string[],
+) {
+  const seen = new Set<string>();
+
+  values.forEach((value, index) => {
+    if (!isRecord(value) || typeof value[key] !== "string" || !value[key]) {
+      return;
+    }
+
+    const candidate = value[key];
+    if (seen.has(candidate)) {
+      errors.push(`${path}[${index}].${key} duplicates "${candidate}".`);
+      return;
+    }
+
+    seen.add(candidate);
   });
 }

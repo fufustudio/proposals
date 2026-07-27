@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { AdminDashboard } from "@/components/admin/admin-dashboard";
-import { getAllProposals } from "@/features/proposals/repository";
+import { getAllProposals } from "@/page-modules/proposals/repository";
 import { pageMetadata } from "@/config/seo";
 import { adminPath, requireAdminAccess } from "@/server/admin-access";
 

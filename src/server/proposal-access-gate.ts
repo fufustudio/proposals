@@ -2,8 +2,8 @@ import { NextResponse, type NextRequest } from "next/server";
 import {
   proposalAccessPath,
   slugFromProposalPath,
-} from "@/features/proposals/paths";
-import { getProposalBySlug } from "@/features/proposals/repository";
+} from "@/page-modules/proposals/paths";
+import { getProposalBySlug } from "@/page-modules/proposals/repository";
 import {
   getProposalAccessConfig,
   proposalAccessCookieName,

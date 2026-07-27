@@ -1,6 +1,9 @@
 import "server-only";
 
-import { proposalAccessPath, proposalPath } from "@/features/proposals/paths";
+import {
+  proposalAccessPath,
+  proposalPath,
+} from "@/page-modules/proposals/paths";
 import {
   createSignedSession,
   timingSafeStringEqual,

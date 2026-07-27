@@ -1,12 +1,11 @@
 # Architecture
 
 This app is a small Next.js App Router site for private proposal pages. It uses
-local typed proposal fixtures until real proposal copy, design, and a final
-content source are supplied.
+version-controlled, runtime-validated JSON for proposal content.
 
 ## Request Flow
 
-1. The public index lives in `src/app/(site)`, while the flattened
+1. The public index lives in `src/app/(home)`, while the flattened
    `src/app/proposals` and `src/app/admin` trees own private proposal and admin
    routes.
 2. `src/proxy.ts` is the thin Next Proxy convention file. It delegates proposal
@@ -16,7 +15,7 @@ content source are supplied.
    sets a signed HttpOnly cookie scoped to that proposal path.
 4. `src/app/api/admin-access/route.ts` validates the admin passcode and sets a
    separate signed HttpOnly cookie scoped to `/admin`.
-5. `src/features/proposals/repository.ts` reads validated local proposal JSON
+5. `src/page-modules/proposals/repository.ts` reads validated local proposal JSON
    through a `server-only` boundary.
 6. `src/server/proposal-access.ts` and `src/server/admin-access.ts` own their
    respective env parsing, password checks, redirect sanitization, token
@@ -36,7 +35,8 @@ content source are supplied.
 - `src/config/` - runtime-wide environment, SEO, site identity, and theme
   configuration.
 - `src/content/` - local proposal fixtures.
-- `src/features/proposals/` - client-safe domain types and paths, validation,
+- `src/page-modules/` - route-facing page composition plus client-safe proposal
+  domain types and paths, validation,
   and a server-only repository.
 - `src/server/` - server-only proposal access helpers and proxy gate logic.
 - `scripts/` - generated-file checks, component validation, and scaffold
@@ -48,20 +48,20 @@ content source are supplied.
 - One-route composition lives beside its route in a `components` folder.
 - Flat generic components own reusable controls, typography, and layout atoms.
 - Proposal components own proposal-specific presentation.
-- `SiteHeader` and `SiteFooter` own shared public chrome; the `(site)` layout
+- `SiteHeader` and `SiteFooter` own shared public chrome; the `(home)` layout
   owns their composition, scripts, and main landmark.
-- `src/features/proposals` owns proposal-specific shared domain logic.
+- `src/page-modules/proposals` owns proposal-specific shared domain logic.
 - Client modules import only proposal `types` and `paths`; fixture reads must go
   through the server-only repository.
 - `src/server` owns password, cookie, signed-session, bounded-request, private
   response, and request-gating logic.
 - `src/config` owns runtime-wide configuration.
 - `src/content` owns local fixture data.
-- Admin routes are private utility surfaces. Keep them noindex, omitted from
-  public navigation, and backed by local JSON until a real content source is
-  selected.
+- Admin routes are private, read-only utility surfaces. Keep them noindex,
+  omitted from public navigation, and backed by the validated local JSON
+  repository.
 - Automatic analytics and performance telemetry mount only from the public
-  `(site)` layout. The sibling `admin` and `proposals` route trees stay outside
+  `(home)` layout. The sibling `admin` and `proposals` route trees stay outside
   that boundary.
 
 Do not duplicate proposal content constants in JSX. If content is reused, move

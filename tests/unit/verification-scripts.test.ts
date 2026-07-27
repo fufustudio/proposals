@@ -18,6 +18,10 @@ import {
   validateProductionOrigin,
   validateProposalCodes,
 } from "../../scripts/check-launch-ready.mjs";
+import {
+  findForbiddenPackageNames,
+  packageNamesFromLock,
+} from "../../scripts/check-proposals-clean.mjs";
 
 describe("proposal launch verification", () => {
   const temporaryDirectories: string[] = [];
@@ -158,6 +162,29 @@ describe("verification command hierarchy", () => {
   });
 });
 
+describe("CMS dependency boundary", () => {
+  it("rejects Sanity and Portable Text packages from a lockfile inventory", () => {
+    const sanityClient = ["@", "sanity/client"].join("");
+    const portableTextReact = ["@", "portabletext/react"].join("");
+    const nextSanity = ["next", "sanity"].join("-");
+    const packageNames = packageNamesFromLock({
+      packages: {
+        "": {},
+        "node_modules/next": {},
+        [`node_modules/${nextSanity}`]: {},
+        [`node_modules/${sanityClient}`]: {},
+        [`node_modules/${portableTextReact}`]: {},
+      },
+    });
+
+    expect(findForbiddenPackageNames(packageNames)).toEqual([
+      nextSanity,
+      sanityClient,
+      portableTextReact,
+    ]);
+  });
+});
+
 describe("private-route telemetry boundary", () => {
   function sourceFiles(directory: string): string[] {
     return readdirSync(directory, { withFileTypes: true }).flatMap((entry) => {
@@ -173,7 +200,7 @@ describe("private-route telemetry boundary", () => {
       "utf8",
     );
     const siteLayout = readFileSync(
-      join(process.cwd(), "src/app/(site)/layout.tsx"),
+      join(process.cwd(), "src/app/(home)/layout.tsx"),
       "utf8",
     );
 

@@ -6,8 +6,11 @@ import {
   safeProposalNextPath,
   validateProposalAccessCode,
 } from "@/server/proposal-access";
-import { proposalAccessPath, proposalPath } from "@/features/proposals/paths";
-import { getProposalBySlug } from "@/features/proposals/repository";
+import {
+  proposalAccessPath,
+  proposalPath,
+} from "@/page-modules/proposals/paths";
+import { getProposalBySlug } from "@/page-modules/proposals/repository";
 import {
   accessResponse,
   invalidAccessPayloadResponse,

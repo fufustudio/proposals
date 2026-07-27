@@ -46,3 +46,10 @@ checks should run against the production build.
 
 The production build gate also scans `.next/static/chunks` to ensure proposal
 fixture identity and copy remain server-only.
+
+## Proposal Content
+
+Proposal content is version-controlled JSON validated at runtime and exposed
+through a server-only repository. See `docs/proposal-content.md` for the
+authoring workflow, supported structure, privacy boundaries, and verification
+steps.

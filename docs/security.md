@@ -28,7 +28,7 @@ screen for proposal drafts, not as a full client portal.
 - Private pages, access responses, and gate redirects send `no-store` and
   `X-Robots-Tag` headers. Their CSP excludes analytics destinations.
 - Automatic analytics and performance telemetry are mounted only in the public
-  `(site)` layout. Proposal and admin routes must remain telemetry-free.
+  `(home)` layout. Proposal and admin routes must remain telemetry-free.
 - Any future explicit analytics events must use the typed allowlist and must
   never include proposal titles, client names, access codes, pricing, route
   slugs, or customer identifiers.

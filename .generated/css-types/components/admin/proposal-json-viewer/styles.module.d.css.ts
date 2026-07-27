@@ -1,6 +1,4 @@
 declare const styles: {
-  readonly editorHeader: string;
-  readonly editorPanel: string;
   readonly header: string;
   readonly headerActions: string;
   readonly meta: string;
@@ -10,6 +8,8 @@ declare const styles: {
   readonly previewSection: string;
   readonly root: string;
   readonly textarea: string;
+  readonly viewerHeader: string;
+  readonly viewerPanel: string;
   readonly workspace: string;
 };
 export = styles;

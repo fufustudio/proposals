@@ -12,7 +12,7 @@ import {
 import type {
   Proposal,
   ProposalSlide as ProposalSlideData,
-} from "@/features/proposals/types";
+} from "@/page-modules/proposals/types";
 import { Eyebrow } from "@/components/eyebrow";
 import { Heading } from "@/components/heading";
 import { ProposalSlideBlocks } from "@/components/proposals/proposal-slide-blocks";

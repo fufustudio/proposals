@@ -4,10 +4,10 @@ import Link, { type LinkProps } from "next/link";
 import { buttonClasses } from "@/components/button";
 import { Eyebrow } from "@/components/eyebrow";
 import { Heading } from "@/components/heading";
-import type { Proposal } from "@/features/proposals/types";
+import type { Proposal } from "@/page-modules/proposals/types";
 import styles from "./styles.module.css";
 
-export function ProposalJsonEditor({
+export function ProposalJsonViewer({
   proposal,
   canonicalJson,
   proposalUrl,
@@ -42,8 +42,8 @@ export function ProposalJsonEditor({
       </header>
 
       <section className={styles.workspace} aria-label="Proposal JSON viewer">
-        <div className={styles.editorPanel}>
-          <div className={styles.editorHeader}>
+        <div className={styles.viewerPanel}>
+          <div className={styles.viewerHeader}>
             <label htmlFor="proposal-json">Proposal JSON</label>
           </div>
           <textarea

@@ -15,8 +15,8 @@ import proposalsJson from "@/content/proposals.json";
 import {
   getAllProposals,
   getProposalBySlug,
-} from "@/features/proposals/repository";
-import { validateProposals } from "@/features/proposals/validation";
+} from "@/page-modules/proposals/repository";
+import { validateProposals } from "@/page-modules/proposals/validation";
 
 describe("proposal content helpers", () => {
   it("finds the demo proposal by slug", () => {
@@ -40,6 +40,43 @@ describe("proposal content helpers", () => {
     expect(result.ok).toBe(true);
     if (result.ok) {
       expect(result.value[0]?.slug).toBe("sample-proposal");
+    }
+  });
+
+  it("rejects invalid identity, dates, structure, and links", () => {
+    const invalid = structuredClone(proposalsJson) as unknown as {
+      slug: string;
+      preparedAt: string;
+      slides: {
+        id: string;
+        blocks: Record<string, unknown>[];
+      }[];
+    }[];
+    const proposal = invalid[0];
+
+    if (!proposal) throw new Error("Expected the sample proposal fixture.");
+
+    proposal.slug = "Invalid Slug";
+    proposal.preparedAt = "2026-02-30";
+    proposal.slides[1]!.id = proposal.slides[0]!.id;
+    proposal.slides[2]!.blocks = [];
+    proposal.slides[11]!.blocks[1]!.href = "javascript:alert(1)";
+    invalid.push(structuredClone(proposal));
+
+    const result = validateProposals(invalid);
+
+    expect(result.ok).toBe(false);
+    if (!result.ok) {
+      expect(result.errors).toEqual(
+        expect.arrayContaining([
+          expect.stringContaining("slug must use lowercase"),
+          expect.stringContaining("preparedAt must be a valid YYYY-MM-DD date"),
+          expect.stringContaining('id duplicates "cover"'),
+          expect.stringContaining("blocks must contain at least one block"),
+          expect.stringContaining("href must be an https, mailto, tel"),
+          expect.stringContaining('slug duplicates "Invalid Slug"'),
+        ]),
+      );
     }
   });
 });

@@ -4,8 +4,11 @@ import { ProposalAccessForm } from "@/components/proposals/access-form";
 import { Container } from "@/components/container";
 import { Eyebrow } from "@/components/eyebrow";
 import { Heading } from "@/components/heading";
-import { proposalAccessPath, proposalPath } from "@/features/proposals/paths";
-import { getProposalBySlug } from "@/features/proposals/repository";
+import {
+  proposalAccessPath,
+  proposalPath,
+} from "@/page-modules/proposals/paths";
+import { getProposalBySlug } from "@/page-modules/proposals/repository";
 import { pageMetadata } from "@/config/seo";
 import styles from "./styles.module.css";
 

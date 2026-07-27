@@ -1,7 +1,7 @@
 import { DisclosureItem, DisclosureList } from "@/components/disclosure-list";
 import { buttonClasses } from "@/components/button";
 import { Heading } from "@/components/heading";
-import type { ProposalBlock } from "@/features/proposals/types";
+import type { ProposalBlock } from "@/page-modules/proposals/types";
 import styles from "./styles.module.css";
 
 export function ProposalSlideBlocks({

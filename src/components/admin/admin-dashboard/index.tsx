@@ -2,8 +2,8 @@ import Link, { type LinkProps } from "next/link";
 import { buttonClasses } from "@/components/button";
 import { Eyebrow } from "@/components/eyebrow";
 import { Heading } from "@/components/heading";
-import { proposalPath } from "@/features/proposals/paths";
-import type { Proposal } from "@/features/proposals/types";
+import { proposalPath } from "@/page-modules/proposals/paths";
+import type { Proposal } from "@/page-modules/proposals/types";
 import { adminProposalEditorPath } from "@/server/admin-access";
 import styles from "./styles.module.css";
 

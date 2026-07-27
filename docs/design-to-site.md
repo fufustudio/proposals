@@ -30,8 +30,8 @@ fixture with a verified private proposal experience.
 - Treat supplied proposal copy as authoritative.
 - Keep content semantic: overview, scope, deliverables, timeline, investment,
   terms, next steps, or other real proposal concepts.
-- Keep pages thin by shaping data in `src/content/proposals.ts` and rendering
-  through proposal components.
+- Keep pages thin by shaping data in `src/content/proposals.json`, validating it
+  through the server-only loader, and rendering through proposal components.
 - Do not encode one-off visual names into proposal data fields.
 
 ## Component Plan

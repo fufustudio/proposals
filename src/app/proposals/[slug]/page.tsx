@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { ProposalReader } from "@/components/proposals/proposal-reader";
-import { proposalPath } from "@/features/proposals/paths";
-import { getProposalBySlug } from "@/features/proposals/repository";
+import { proposalPath } from "@/page-modules/proposals/paths";
+import { getProposalBySlug } from "@/page-modules/proposals/repository";
 import { pageMetadata } from "@/config/seo";
 import { requireProposalAccess } from "@/server/require-proposal-access";
 

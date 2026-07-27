@@ -31,7 +31,7 @@ does not mean every file should be byte-identical.
 - `src/components/admin` and `src/components/proposals` remain explicit domain
   namespaces.
 - Proposal data is local and server-only rather than CMS-backed.
-- Automatic telemetry mounts only in `src/app/(site)/layout.tsx`.
+- Automatic telemetry mounts only in `src/app/(home)/layout.tsx`.
 - Access configuration is cross-checked against local proposal slugs.
 - Admin and proposal auth share low-level mechanics but retain distinct policy,
   cookie, redirect, and signed-purpose adapters.
