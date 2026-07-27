@@ -25,6 +25,7 @@ const forbidden = [
 const ignoredGlobs = [
   "package-lock.json",
   "scripts/check-proposals-clean.mjs",
+  "docs/starter-sync.md",
   ".generated/**",
   "node_modules/**",
   ".next/**",

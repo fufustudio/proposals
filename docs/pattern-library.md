@@ -11,12 +11,11 @@ intake.
 - Keep component props semantic: heading, intro, items, actions, image.
 - Keep shared recipes and CTA groups as Server Components where possible.
 - Do not add a generic page-builder abstraction for this phase.
-- Do not add Radix, React Aria, CVA, `tailwind-merge`, or a styled UI kit by
-  default.
+- Do not add Radix, React Aria, CVA, or a styled UI kit by default.
 
 ## Shared Types
 
-Shared recipe types live in `src/components/sections/types`.
+Shared recipe types live in `src/components/types.ts`.
 
 ```ts
 type PatternHref = LinkProps<string>["href"] | string;
@@ -25,13 +24,14 @@ type PatternAction = {
   label: React.ReactNode;
   href: PatternHref;
   variant?: "primary" | "secondary" | "outline" | "ghost";
-  event?: string;
+  analytics?: AnalyticsEvent;
   external?: boolean;
   ariaLabel?: string;
 };
 ```
 
-Proposal data types live in `src/features/proposals/index.ts`.
+Proposal data types live in `src/features/proposals/types.ts`; client-safe route
+helpers live in `paths.ts`, and server-only reads live in `repository.ts`.
 
 Current proposal slide data is intentionally deck-oriented:
 
@@ -89,7 +89,9 @@ type ProposalBlock =
 ## UI Primitives
 
 - `Button`, `ButtonLink`, and `buttonClasses()` share variants and sizes.
-- `ActionGroup` renders CTA lists and tracks `event` values when present.
+- `Heading`, `Text`, and `Eyebrow` separate semantic elements from visual scale.
+- `ActionGroup` renders CTA lists and tracks typed `analytics` events when
+  present.
 - `TrackedLink` is the low-level client bridge for analytics-tracked links.
 - `ImageFrame` provides stable `next/image` regions with `landscape`,
   `portrait`, `square`, and `wide` aspect options.
@@ -113,5 +115,3 @@ Add libraries only when their specific value is needed:
 - React Aria: advanced app-like controls such as comboboxes, date pickers, or
   collection selection.
 - CVA: typed class variants when a component has many meaningful variants.
-- `tailwind-merge`: conflict-safe Tailwind class merging when project code
-  becomes Tailwind-class heavy.

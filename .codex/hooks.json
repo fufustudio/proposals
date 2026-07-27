@@ -12,6 +12,18 @@
           }
         ]
       }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"$(git rev-parse --show-toplevel)/scripts/verify-agent-stop.mjs\"",
+            "timeout": 240,
+            "statusMessage": "Verifying edited code before completion"
+          }
+        ]
+      }
     ]
   }
 }

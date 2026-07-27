@@ -1,25 +1,26 @@
 import { NextResponse, type NextRequest } from "next/server";
 import {
-  getProposalBySlug,
   proposalAccessPath,
   slugFromProposalPath,
-} from "@/features/proposals";
+} from "@/features/proposals/paths";
+import { getProposalBySlug } from "@/features/proposals/repository";
 import {
   getProposalAccessConfig,
   proposalAccessCookieName,
   verifyProposalAccessCookieValue,
 } from "@/server/proposal-access";
+import { applyPrivateResponseHeaders } from "@/server/access-http";
 
 export function guardProposalAccessRequest(request: NextRequest) {
   const { pathname, search } = request.nextUrl;
   const slug = slugFromProposalPath(pathname);
 
   if (!slug || pathname === proposalAccessPath(slug)) {
-    return NextResponse.next();
+    return applyPrivateResponseHeaders(NextResponse.next());
   }
 
   const proposal = getProposalBySlug(slug);
-  if (!proposal) return NextResponse.next();
+  if (!proposal) return applyPrivateResponseHeaders(NextResponse.next());
 
   const hasAccess = verifyProposalAccessCookieValue({
     slug,
@@ -27,10 +28,10 @@ export function guardProposalAccessRequest(request: NextRequest) {
     config: getProposalAccessConfig(),
   });
 
-  if (hasAccess) return NextResponse.next();
+  if (hasAccess) return applyPrivateResponseHeaders(NextResponse.next());
 
   const accessUrl = new URL(proposalAccessPath(slug), request.url);
   accessUrl.searchParams.set("next", `${pathname}${search}`);
 
-  return NextResponse.redirect(accessUrl);
+  return applyPrivateResponseHeaders(NextResponse.redirect(accessUrl));
 }

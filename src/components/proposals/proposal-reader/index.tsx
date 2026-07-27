@@ -1,5 +1,5 @@
 import { ProposalDeck } from "@/components/proposals/proposal-deck";
-import type { Proposal } from "@/features/proposals";
+import type { Proposal } from "@/features/proposals/types";
 import styles from "./styles.module.css";
 
 export function ProposalReader({ proposal }: { proposal: Proposal }) {

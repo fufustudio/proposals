@@ -1,8 +1,10 @@
 "use client";
 
 import Link, { type LinkProps } from "next/link";
-import { buttonClasses } from "@/components/ui/button";
-import type { Proposal } from "@/features/proposals";
+import { buttonClasses } from "@/components/button";
+import { Eyebrow } from "@/components/eyebrow";
+import { Heading } from "@/components/heading";
+import type { Proposal } from "@/features/proposals/types";
 import styles from "./styles.module.css";
 
 export function ProposalJsonEditor({
@@ -18,8 +20,8 @@ export function ProposalJsonEditor({
     <main className={styles.root}>
       <header className={styles.header}>
         <div>
-          <p className="eyebrow">JSON viewer</p>
-          <h1>{proposal.clientLabel}</h1>
+          <Eyebrow>JSON viewer</Eyebrow>
+          <Heading as="h1">{proposal.clientLabel}</Heading>
         </div>
         <div className={styles.headerActions}>
           <Link className={buttonClasses("secondary", "", "sm")} href="/admin">
@@ -56,7 +58,9 @@ export function ProposalJsonEditor({
 
         <aside className={styles.preview} aria-label="Proposal outline preview">
           <section className={styles.previewSection}>
-            <h2>Metadata</h2>
+            <Heading as="h2" size="module">
+              Metadata
+            </Heading>
             <dl className={styles.meta}>
               <div>
                 <dt>Title</dt>
@@ -75,7 +79,9 @@ export function ProposalJsonEditor({
 
           <section className={styles.previewSection}>
             <div className={styles.outlineHeader}>
-              <h2>Slides</h2>
+              <Heading as="h2" size="module">
+                Slides
+              </Heading>
               <span>{proposal.slides.length}</span>
             </div>
             <ol className={styles.outline}>

@@ -1,3 +1,5 @@
+import "server-only";
+
 import proposalsJson from "./proposals.json";
 import { assertProposals } from "@/features/proposals/validation";
 

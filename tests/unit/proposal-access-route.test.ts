@@ -35,6 +35,10 @@ describe("POST /api/proposal-access", () => {
       "Path=/proposals/sample-proposal",
     );
     expect(res.headers.get("set-cookie")).toContain("HttpOnly");
+    expect(res.headers.get("set-cookie")).toContain("SameSite=lax");
+    expect(res.headers.get("set-cookie")).toContain("Secure");
+    expect(res.headers.get("cache-control")).toContain("no-store");
+    expect(res.headers.get("x-robots-tag")).toContain("noindex");
   });
 
   it("returns to the access page for invalid codes", async () => {
@@ -86,6 +90,31 @@ describe("POST /api/proposal-access", () => {
     expect(res.headers.get("location")).toBe(
       "https://example.com/proposals/sample-proposal",
     );
+  });
+
+  it("rejects unsupported and oversized request bodies", async () => {
+    const unsupported = await POST(
+      new Request("https://example.com/api/proposal-access", {
+        method: "POST",
+        headers: { "Content-Type": "text/plain" },
+        body: "code=demo",
+      }),
+    );
+    const oversized = await POST(
+      new Request("https://example.com/api/proposal-access", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+          "Content-Length": "9000",
+        },
+        body: "code=demo",
+      }),
+    );
+
+    expect(unsupported.status).toBe(303);
+    expect(unsupported.headers.get("location")).toBe("https://example.com/");
+    expect(oversized.status).toBe(303);
+    expect(oversized.headers.get("location")).toBe("https://example.com/");
   });
 });
 

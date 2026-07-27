@@ -1,17 +1,19 @@
-@import "tailwindcss";
+@layer reset, base, components, utilities;
 
 /* ============================================================
    THEME CONTRACT — to rebrand, edit only this block (and the
-   three font families in layout.tsx). Markup references roles
-   (bg-surface, text-accent, tone="feature"…), never color names,
+   three font families in src/components/fonts.ts). Markup references roles
+   (surface, accent, tone="feature"…), never color names,
    so a new direction means new values here and nothing else.
    ============================================================ */
-@theme {
+:root {
   --color-bg: #f6f2ea; /* page background */
   --color-fg: #1c1a15; /* headings and dark bands */
   --color-body: #3a372f; /* body copy (softer than fg) */
   --color-surface: #fbf8f1; /* cards / raised panels */
   --color-muted: rgb(28 26 21 / 0.14); /* hairline borders, card edges */
+  --color-border: var(--color-muted);
+  --color-muted-surface: var(--color-feature);
   --color-accent: #925335; /* links, eyebrows, emphasis */
   --color-accent-soft: #ead9ce; /* selection and subtle fills */
   --color-feature: #efe8dc; /* warm feature band */
@@ -23,29 +25,167 @@
   --color-button-primary-hover: #3a3328;
   --color-nav-surface-overlay: #f6f2ea;
   --color-interactive-hover: rgb(28 26 21 / 0.06);
+  --color-on-dark-strong: rgb(241 238 235 / 0.82);
+  --color-on-dark-body: rgb(241 238 235 / 0.68);
+  --color-on-dark-muted: rgb(241 238 235 / 0.56);
+  --color-media-scrim: rgb(58 35 42 / 0.62);
+  --color-media-scrim-strong: rgb(58 35 42 / 0.68);
+  --color-section-muted: rgb(241 238 235 / 0.5);
+  --color-section-feature: rgb(239 226 214 / 0.3);
 
   --font-heading: var(--font-instrument-serif);
   --font-body: var(--font-hanken-grotesk);
   --font-sans: var(--font-hanken-grotesk);
   --font-mono: var(--font-jetbrains-mono);
+
+  --font-size-label-sm: 0.75rem;
+  --font-size-label: 0.8125rem;
+  --font-size-body-sm: 0.875rem;
+  --font-size-body-compact: 0.9375rem;
+  --font-size-body: 1rem;
+  --font-size-body-md: 1.0625rem;
+  --font-size-body-lg: 1.125rem;
+  --font-size-wordmark: 1.125rem;
+  --font-size-heading-display: clamp(2.6rem, 7vw, 4.125rem);
+  --font-size-heading-section: clamp(2rem, 5.5vw, 2.75rem);
+  --font-size-heading-module: clamp(1.75rem, 4vw, 2.375rem);
+  --font-size-heading-item: clamp(1.25rem, 3vw, 1.5rem);
+  --font-size-stat: clamp(2rem, 5vw, 3.5rem);
+
+  --line-height-heading: 1.08;
+  --line-height-stat: 1;
+  --line-height-label: 1.4;
+  --line-height-body: 1.6;
+  --line-height-relaxed: 1.7;
+  --line-height-prose: 1.75;
+  --letter-spacing-label: 0.14em;
+  --letter-spacing-label-wide: 0.22em;
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-14: 3.5rem;
+  --space-16: 4rem;
+
+  --content-width-sm: 32.5rem;
+  --content-width-md: 42.5rem;
+  --content-width-lg: 56.25rem;
+  --content-width-xl: 70rem;
+  --container-sm: 42rem;
+  --container-md: 48rem;
+  --container-lg: 64rem;
+  --container-xl: 75rem;
+
   --radius-btn: 9999px;
   --radius-card: 8px;
   --radius-media: 8px;
   --radius-panel: 8px;
   --shadow-card: 0 30px 60px rgb(20 18 14 / 0.1);
+  --transition-fast: 150ms ease;
+  --transition-default: 300ms ease;
+  --focus-ring-width: 2px;
+  --focus-ring-offset: 3px;
+  --control-min-height: 2.75rem;
+  --grid-gutter: clamp(1.25rem, 3vw, 2rem);
   --space-section-compact: clamp(3rem, 7vw, 4rem);
   --space-section-default: clamp(4rem, 8vw, 5rem);
   --space-section-spacious: clamp(5rem, 10vw, 8rem);
+  --space-page-start: clamp(7rem, 9vw, 8rem);
+  --space-page-end: clamp(5rem, 8vw, 6rem);
+  --space-heading-gap-default: clamp(3.5rem, 6vw, 3.75rem);
+  --space-heading-gap-spacious: clamp(4rem, 7vw, 5rem);
+  --space-page-header-children: clamp(1rem, 6vw, 3.75rem);
 }
 /* ===================== end theme contract ==================== */
 
+@layer reset {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  html {
+    text-size-adjust: 100%;
+  }
+
+  body,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p,
+  blockquote,
+  dl,
+  dd,
+  figure {
+    margin: 0;
+  }
+
+  ul,
+  ol {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  button,
+  input,
+  textarea,
+  select {
+    font: inherit;
+    color: inherit;
+  }
+
+  button {
+    border: 0;
+    padding: 0;
+    background: none;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  img,
+  video,
+  picture,
+  canvas,
+  svg {
+    display: block;
+    max-width: 100%;
+  }
+
+  img,
+  video {
+    height: auto;
+  }
+
+  [hidden] {
+    display: none !important;
+  }
+}
+
 @layer base {
   body {
+    min-height: 100vh;
     background-color: var(--color-bg);
     color: var(--color-body);
     font-family: var(--font-body), system-ui, sans-serif;
-    font-size: 16px;
-    line-height: 1.6;
+    font-size: var(--font-size-body);
+    line-height: var(--line-height-body);
     -webkit-font-smoothing: antialiased;
   }
 
@@ -56,10 +196,13 @@
 
   h1,
   h2,
-  h3 {
+  h3,
+  h4,
+  h5,
+  h6 {
     font-family: var(--font-heading), Georgia, serif;
-    font-weight: 400;
-    line-height: 1.08;
+    font-weight: var(--font-weight-regular);
+    line-height: var(--line-height-heading);
     letter-spacing: 0;
     color: var(--color-fg);
   }
@@ -71,13 +214,36 @@
     font-size: clamp(2.25rem, 5.5vw, 64px);
   }
   h3 {
-    font-size: clamp(1.25rem, 3vw, 24px);
+    font-size: var(--font-size-heading-item);
+  }
+
+  :focus-visible {
+    outline: var(--focus-ring-width) solid var(--color-accent);
+    outline-offset: var(--focus-ring-offset);
   }
 }
 
 @layer components {
+  .skip-link {
+    position: fixed;
+    top: var(--space-3);
+    left: var(--space-3);
+    z-index: 100;
+    padding: var(--space-3) var(--space-4);
+    border-radius: var(--radius-btn);
+    background: var(--color-fg);
+    color: var(--color-light);
+    font-family: var(--font-sans), sans-serif;
+    font-weight: var(--font-weight-semibold);
+    transform: translateY(-200%);
+    transition: transform var(--transition-fast);
+  }
+
+  .skip-link:focus-visible {
+    transform: translateY(0);
+  }
+
   .site-grid {
-    --grid-gutter: clamp(1.25rem, 3vw, 2rem);
     display: grid;
     grid-template-columns: repeat(4, minmax(0, 1fr));
     column-gap: var(--grid-gutter);
@@ -98,24 +264,24 @@
   }
 
   .grid-center-sm {
-    max-width: 520px;
+    max-width: var(--content-width-sm);
   }
 
   .grid-center-md {
-    max-width: 680px;
+    max-width: var(--content-width-md);
   }
 
   .grid-center-lg {
-    max-width: 900px;
+    max-width: var(--content-width-lg);
   }
 
   .grid-center-xl {
-    max-width: 1120px;
+    max-width: var(--content-width-xl);
   }
 
   .grid-stack {
     display: grid;
-    gap: var(--grid-gutter, clamp(1.25rem, 3vw, 2rem));
+    gap: var(--grid-gutter);
   }
 
   .grid-split-media,
@@ -182,97 +348,6 @@
       grid-template-columns: repeat(4, minmax(0, 1fr));
     }
   }
-
-  .heading-display,
-  .heading-section,
-  .heading-module,
-  .heading-item {
-    font-family: var(--font-heading), Georgia, serif;
-    font-weight: 400;
-    line-height: 1.08;
-    letter-spacing: 0;
-    color: var(--color-fg);
-  }
-
-  .heading-display {
-    font-size: clamp(2.6rem, 7vw, 66px);
-  }
-
-  .heading-section {
-    font-size: clamp(2rem, 5.5vw, 44px);
-  }
-
-  .heading-module {
-    font-size: clamp(1.75rem, 4vw, 38px);
-  }
-
-  .heading-item {
-    font-size: clamp(1.25rem, 3vw, 24px);
-  }
-
-  /* Manrope eyebrow — small uppercase label above headings */
-  .eyebrow {
-    font-family: var(--font-sans), system-ui, sans-serif;
-    font-weight: 600;
-    font-size: 13px;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
-    color: var(--color-accent);
-  }
-
-  /* IBM Plex Mono label — nav, step numbers, footer captions */
-  .mono-label {
-    font-family: var(--font-mono), ui-monospace, monospace;
-    font-weight: 500;
-    font-size: 13px;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-  }
-
-  .body-1 {
-    font-size: 18px;
-    line-height: 1.6;
-  }
-
-  .body-2 {
-    font-size: 16px;
-    line-height: 1.6;
-  }
-
-  .body-3 {
-    font-size: 14px;
-    line-height: 1.6;
-  }
-
-  /* Translucent card surface */
-  .card {
-    background-color: color-mix(in srgb, var(--color-surface) 70%, transparent);
-    border: 1px solid var(--color-muted);
-    border-radius: var(--radius-card);
-  }
-
-  .interactive-cell {
-    transition: background-color 0.25s ease;
-  }
-
-  .interactive-cell:hover {
-    background-color: var(--color-interactive-hover);
-  }
-
-  .prose {
-    line-height: 1.75;
-  }
-  .prose p {
-    margin-bottom: 1.25rem;
-  }
-  .prose a {
-    color: var(--color-accent);
-    text-decoration: underline;
-    text-underline-offset: 2px;
-  }
-  .prose h2 {
-    margin: 2rem 0 1rem;
-  }
 }
 
 @keyframes content-fade-in {
@@ -280,30 +355,19 @@
     opacity: 0;
     transform: translateY(12px);
   }
+
   to {
     opacity: 1;
     transform: none;
   }
 }
-@keyframes gentle-bob {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(9px);
-  }
-}
+
 .content-fade-in {
   animation: content-fade-in 0.5s ease both;
 }
-.gentle-bob {
-  animation: gentle-bob 1.9s ease-in-out infinite;
-}
 
 @media (prefers-reduced-motion: reduce) {
-  .content-fade-in,
-  .gentle-bob {
+  .content-fade-in {
     animation: none;
   }
 }

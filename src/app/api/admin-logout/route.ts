@@ -1,15 +1,16 @@
-import { NextResponse } from "next/server";
 import {
   adminAccessCookieName,
   adminAccessPath,
   adminPath,
 } from "@/server/admin-access";
+import { accessResponse, isSecureRequest } from "@/server/access-http";
 
 export async function POST(request: Request) {
-  const wantsJson = request.headers.get("accept")?.includes("application/json");
-  const response = wantsJson
-    ? NextResponse.json({ success: true, redirectTo: adminAccessPath })
-    : NextResponse.redirect(new URL(adminAccessPath, request.url), 303);
+  const response = accessResponse({
+    request,
+    redirectPath: adminAccessPath,
+    success: true,
+  });
 
   response.cookies.set({
     name: adminAccessCookieName,
@@ -22,11 +23,4 @@ export async function POST(request: Request) {
   });
 
   return response;
-}
-
-function isSecureRequest(request: Request) {
-  return (
-    new URL(request.url).protocol === "https:" ||
-    request.headers.get("x-forwarded-proto") === "https"
-  );
 }

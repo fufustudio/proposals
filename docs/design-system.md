@@ -4,17 +4,20 @@ The proposal scaffold provides a restrained layout and styling contract, not a f
 
 ## Theme Tokens
 
-Edit the `@theme` block in `src/app/globals.css` for project colors and fonts. Mirror core values in `src/lib/theme.ts` for OpenGraph image generation.
+Edit the `:root` theme contract in `src/app/globals.css` for project colors and
+fonts. Mirror core values in `src/config/theme.ts` for OpenGraph image
+generation.
 
 Components should reference semantic tokens such as `bg-feature`, `text-accent`, `text-light`, and `border-muted`. Do not scatter raw hex values through components.
 
 ## Typography
 
-Fonts are loaded in `src/app/layout.tsx`. Project routes should use:
+Fonts are configured in `src/components/fonts.ts` and applied by the root
+layout. Project routes should use:
 
-- native headings for document structure.
-- `.eyebrow` for small section labels.
-- `.body-*` utilities for shared text scale.
+- `Heading` for semantic headings and shared heading styles.
+- `Eyebrow` for small section labels.
+- `Text` for shared body styles.
 - component CSS modules for local adjustments.
 
 Do not scale font size directly with viewport width. Keep letter spacing at `0` unless a compact label style explicitly needs spacing.
@@ -49,7 +52,7 @@ adds jump navigation.
 ## Buttons And Links
 
 Use `Button`, `ButtonLink`, and `buttonClasses()` for button-like CTAs,
-`ActionGroup` for section CTA rows with optional analytics events, and
+`ActionGroup` for section CTA rows with optional typed analytics events, and
 `TextLink` for inline navigation. Shared link props use `PatternHref` so typed
 routes, URL objects, hash links, and external URL strings work consistently. Add
 a new shared button variant only when multiple surfaces need it.

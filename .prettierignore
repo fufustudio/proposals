@@ -3,6 +3,4 @@ node_modules
 coverage
 playwright-report
 test-results
-schema.json
-sanity.types.ts
 outputs/*.inspect.ndjson

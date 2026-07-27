@@ -1,4 +1,3 @@
-import { NextResponse } from "next/server";
 import {
   adminAccessCookieName,
   adminAccessMaxAge,
@@ -9,12 +8,21 @@ import {
   safeAdminNextPath,
   validateAdminAccessCode,
 } from "@/server/admin-access";
+import {
+  accessResponse,
+  invalidAccessPayloadResponse,
+  isSecureRequest,
+  readAccessPayload,
+} from "@/server/access-http";
 
 export async function POST(request: Request) {
-  const payload = await readPayload(request);
-  const code = payload.code;
-  const nextPath = safeAdminNextPath(payload.next);
-  const wantsJson = request.headers.get("accept")?.includes("application/json");
+  const payload = await readAccessPayload(request, ["code", "next"]);
+  if (!payload.ok) {
+    return invalidAccessPayloadResponse(request, payload.reason);
+  }
+
+  const code = payload.fields.code;
+  const nextPath = safeAdminNextPath(payload.fields.next);
   const config = getAdminAccessConfig();
 
   if (!code || !validateAdminAccessCode({ code, config })) {
@@ -22,9 +30,8 @@ export async function POST(request: Request) {
     errorUrl.searchParams.set("error", "invalid");
     errorUrl.searchParams.set("next", nextPath);
 
-    return adminAccessResponse({
-      requestUrl: request.url,
-      wantsJson,
+    return accessResponse({
+      request,
       redirectPath: `${errorUrl.pathname}${errorUrl.search}`,
       success: false,
       status: 401,
@@ -34,9 +41,8 @@ export async function POST(request: Request) {
     });
   }
 
-  const response = adminAccessResponse({
-    requestUrl: request.url,
-    wantsJson,
+  const response = accessResponse({
+    request,
     redirectPath: nextPath,
     success: true,
   });
@@ -51,63 +57,4 @@ export async function POST(request: Request) {
   });
 
   return response;
-}
-
-function adminAccessResponse({
-  requestUrl,
-  wantsJson,
-  redirectPath,
-  success,
-  status = 200,
-  message,
-}: {
-  requestUrl: string;
-  wantsJson?: boolean;
-  redirectPath: string;
-  success: boolean;
-  status?: number;
-  message?: string;
-}) {
-  if (wantsJson) {
-    return NextResponse.json(
-      { success, redirectTo: redirectPath, ...(message ? { message } : {}) },
-      { status },
-    );
-  }
-
-  return NextResponse.redirect(new URL(redirectPath, requestUrl), 303);
-}
-
-async function readPayload(request: Request) {
-  const contentType = request.headers.get("content-type") ?? "";
-
-  if (contentType.includes("application/json")) {
-    const json = await request.json().catch(() => null);
-    return {
-      code: fieldValue(json, "code"),
-      next: fieldValue(json, "next"),
-    };
-  }
-
-  const params = new URLSearchParams(await request.text());
-  return {
-    code: formValue(params.get("code")),
-    next: formValue(params.get("next")),
-  };
-}
-
-function fieldValue(value: unknown, key: string) {
-  if (!value || typeof value !== "object") return "";
-  return formValue((value as Record<string, unknown>)[key]);
-}
-
-function formValue(value: unknown) {
-  return typeof value === "string" ? value.trim() : "";
-}
-
-function isSecureRequest(request: Request) {
-  return (
-    new URL(request.url).protocol === "https:" ||
-    request.headers.get("x-forwarded-proto") === "https"
-  );
 }

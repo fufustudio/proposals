@@ -23,6 +23,8 @@ describe("admin access proxy gate", () => {
     expect(response.headers.get("location")).toBe(
       "https://example.com/admin/access?next=%2Fadmin%2Fproposals%2Fsample-proposal",
     );
+    expect(response.headers.get("cache-control")).toContain("no-store");
+    expect(response.headers.get("x-robots-tag")).toContain("noindex");
   });
 
   it("allows the admin access page through", () => {
@@ -31,6 +33,8 @@ describe("admin access proxy gate", () => {
     );
 
     expect(response.headers.get("x-middleware-next")).toBe("1");
+    expect(response.headers.get("cache-control")).toContain("no-store");
+    expect(response.headers.get("x-robots-tag")).toContain("noindex");
   });
 
   it("allows admin requests with a valid signed access cookie", () => {

@@ -14,6 +14,7 @@ Selection order:
 
 - `Section` owns vertical rhythm, tone, and major page bands.
 - `Container` owns gutters and max width.
+- `Heading`, `Text`, and `Eyebrow` own shared semantic typography.
 - `site-grid` and grid helpers own cross-page alignment.
 - Page-specific CSS Modules own unusual composition that appears on one route.
 - Add a new layout component only when the same structure appears in multiple
@@ -39,6 +40,8 @@ Selection order:
   element plus classes.
 - Use `ActionGroup` for repeated CTA groups.
 - Use `TextLink` for inline or understated navigation.
+- Supply analytics through the typed `analytics` prop and its closed event
+  allowlist; do not invent event strings in components.
 - Reusable link props should use the shared `PatternHref` shape so typed routes,
   URL objects, hash links, and external URL strings are accepted consistently.
 

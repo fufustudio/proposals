@@ -1,0 +1,16 @@
+.root {
+  display: inline-block;
+  border-bottom: 1px solid var(--color-accent);
+  padding-bottom: var(--space-1);
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: var(--font-size-label);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-accent);
+  letter-spacing: 0.06em;
+  text-transform: none;
+  transition: color var(--transition-fast);
+}
+
+.root:hover {
+  color: var(--color-fg);
+}

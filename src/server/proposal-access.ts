@@ -1,5 +1,11 @@
-import { createHmac, timingSafeEqual } from "node:crypto";
-import { proposalAccessPath, proposalPath } from "@/features/proposals";
+import "server-only";
+
+import { proposalAccessPath, proposalPath } from "@/features/proposals/paths";
+import {
+  createSignedSession,
+  timingSafeStringEqual,
+  verifySignedSession,
+} from "@/server/signed-session";
 
 export type ProposalAccessConfig = {
   codes: Readonly<Record<string, string>>;
@@ -18,7 +24,7 @@ type EnvLike = {
 
 const demoCodes = { "sample-proposal": "demo" } as const;
 const demoSessionSecret = "development-only-fufu-proposals-session-secret";
-const tokenVersion = "v1";
+const sessionPurpose = "proposal-reader";
 
 export const proposalAccessCookieName = "proposal_access";
 export const proposalAccessMaxAge = 60 * 60 * 24 * 14;
@@ -115,14 +121,13 @@ export function createProposalAccessCookieValue({
     throw new Error("Proposal access is missing PROPOSAL_SESSION_SECRET.");
   }
 
-  const expiresAt = now + proposalAccessMaxAge * 1000;
-  const payload = Buffer.from(
-    JSON.stringify({ slug, expiresAt }),
-    "utf8",
-  ).toString("base64url");
-  const signature = signPayload(payload, config.sessionSecret);
-
-  return `${tokenVersion}.${payload}.${signature}`;
+  return createSignedSession({
+    purpose: sessionPurpose,
+    data: { slug },
+    secret: config.sessionSecret,
+    maxAge: proposalAccessMaxAge,
+    now,
+  });
 }
 
 export function verifyProposalAccessCookieValue({
@@ -136,35 +141,20 @@ export function verifyProposalAccessCookieValue({
   config?: ProposalAccessConfig;
   now?: number;
 }) {
-  if (!value || !config.sessionSecret) return false;
+  const data = verifySignedSession({
+    value,
+    purpose: sessionPurpose,
+    secret: config.sessionSecret,
+    now,
+    validateData: (payload): payload is { slug: string } =>
+      Boolean(
+        payload &&
+        typeof payload === "object" &&
+        typeof (payload as { slug?: unknown }).slug === "string",
+      ),
+  });
 
-  const [version, payload, signature, ...rest] = value.split(".");
-  if (version !== tokenVersion || !payload || !signature || rest.length > 0) {
-    return false;
-  }
-
-  if (
-    !timingSafeStringEqual(
-      signature,
-      signPayload(payload, config.sessionSecret),
-    )
-  ) {
-    return false;
-  }
-
-  try {
-    const decoded = JSON.parse(
-      Buffer.from(payload, "base64url").toString("utf8"),
-    ) as { slug?: unknown; expiresAt?: unknown };
-
-    return (
-      decoded.slug === slug &&
-      typeof decoded.expiresAt === "number" &&
-      decoded.expiresAt > now
-    );
-  } catch {
-    return false;
-  }
+  return data?.slug === slug;
 }
 
 export function safeProposalNextPath(next: string, slug: string) {
@@ -185,17 +175,4 @@ export function safeProposalNextPath(next: string, slug: string) {
   } catch {
     return fallback;
   }
-}
-
-function signPayload(payload: string, secret: string) {
-  return createHmac("sha256", secret).update(payload).digest("base64url");
-}
-
-function timingSafeStringEqual(left: string, right: string) {
-  const leftBuffer = Buffer.from(left);
-  const rightBuffer = Buffer.from(right);
-
-  if (leftBuffer.length !== rightBuffer.length) return false;
-
-  return timingSafeEqual(leftBuffer, rightBuffer);
 }

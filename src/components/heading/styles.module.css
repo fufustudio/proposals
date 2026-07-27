@@ -1,0 +1,34 @@
+.root {
+  font-family: var(--font-heading), Georgia, serif;
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-heading);
+  letter-spacing: 0;
+}
+
+.display {
+  font-size: var(--font-size-heading-display);
+}
+
+.section {
+  font-size: var(--font-size-heading-section);
+}
+
+.module {
+  font-size: var(--font-size-heading-module);
+}
+
+.item {
+  font-size: var(--font-size-heading-item);
+}
+
+.toneDefault {
+  color: var(--color-fg);
+}
+
+.toneInherit {
+  color: inherit;
+}
+
+.toneLight {
+  color: var(--color-light);
+}

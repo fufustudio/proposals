@@ -1,0 +1,27 @@
+.root {
+  margin-inline: auto;
+  width: 100%;
+  padding-inline: var(--space-6);
+}
+
+.sm {
+  max-width: var(--container-sm);
+}
+
+.md {
+  max-width: var(--container-md);
+}
+
+.lg {
+  max-width: var(--container-lg);
+}
+
+.xl {
+  max-width: var(--container-xl);
+}
+
+@media (min-width: 640px) {
+  .root {
+    padding-inline: var(--space-10);
+  }
+}

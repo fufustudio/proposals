@@ -1,0 +1,49 @@
+.root {
+  width: 100%;
+}
+
+.center {
+  margin-inline: auto;
+  text-align: center;
+}
+
+.left {
+  text-align: left;
+}
+
+.sm {
+  max-width: var(--content-width-sm);
+}
+
+.md {
+  max-width: var(--content-width-md);
+}
+
+.lg {
+  max-width: var(--content-width-lg);
+}
+
+.gapDefault {
+  margin-bottom: var(--space-heading-gap-default);
+}
+
+.gapSpacious {
+  margin-bottom: var(--space-heading-gap-spacious);
+}
+
+.headingAfterEyebrow {
+  margin-top: var(--space-4);
+}
+
+.intro {
+  margin-top: var(--space-5);
+}
+
+.center .intro {
+  margin-inline: auto;
+  max-width: var(--content-width-sm);
+}
+
+.left .intro {
+  max-width: var(--content-width-sm);
+}

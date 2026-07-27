@@ -30,8 +30,9 @@ the design or repo. Close rows when answered.
 | Check                     | Target              | Result  | Notes |
 | ------------------------- | ------------------- | ------- | ----- |
 | `npm run verify:quick`    | repo                | not run |       |
-| `npm run verify:working`  | repo                | not run |       |
+| `npm run verify`          | repo                | not run |       |
 | `npm run verify:proposal` | repo                | not run |       |
+| `npm run launch:check`    | production config   | not run |       |
 | `npm run verify:handoff`  | proposal experience | not run |       |
 
 ## Handoff Notes

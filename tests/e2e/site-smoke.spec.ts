@@ -2,7 +2,7 @@ import AxeBuilder from "@axe-core/playwright";
 import { expect, test } from "@playwright/test";
 import type { Page } from "@playwright/test";
 
-const publicRoutes = [
+const accessibilityRoutes = [
   "/",
   "/admin/access",
   "/proposals/sample-proposal/access",
@@ -26,8 +26,8 @@ const proposalLayoutTargets = [
   { id: "next-steps", heading: "Four steps to week one." },
 ];
 
-test.describe("public routes", () => {
-  for (const route of publicRoutes) {
+test.describe("accessibility routes", () => {
+  for (const route of accessibilityRoutes) {
     test(`${route} renders without critical accessibility violations`, async ({
       page,
     }) => {
@@ -47,6 +47,70 @@ test.describe("public routes", () => {
       expect(results.violations).toEqual([]);
     });
   }
+});
+
+test("public route returns the production security baseline", async ({
+  page,
+}) => {
+  const response = await page.goto("/");
+
+  expect(response?.status()).toBe(200);
+  expect(response?.headers()["content-security-policy"]).toContain(
+    "frame-ancestors 'self'",
+  );
+  expect(response?.headers()["x-content-type-options"]).toBe("nosniff");
+  expect(response?.headers()["x-frame-options"]).toBe("SAMEORIGIN");
+  expect(response?.headers()["referrer-policy"]).toBe(
+    "strict-origin-when-cross-origin",
+  );
+});
+
+test("public skip link moves keyboard focus to the main landmark", async ({
+  page,
+}) => {
+  await page.goto("/");
+  await page.keyboard.press("Tab");
+
+  const skipLink = page.getByRole("link", { name: "Skip to main content" });
+  await expect(skipLink).toBeFocused();
+  await skipLink.press("Enter");
+  await expect(page.locator("#main-content")).toBeFocused();
+});
+
+test("not-found route returns branded fallback content", async ({ page }) => {
+  const response = await page.goto("/missing-page");
+
+  expect(response?.status()).toBe(404);
+  await expect(
+    page.getByRole("heading", { name: "This page is not available." }),
+  ).toBeVisible();
+});
+
+test("private entry routes are non-indexable, uncached, and telemetry-free", async ({
+  page,
+}) => {
+  for (const route of ["/admin/access", "/proposals/sample-proposal/access"]) {
+    const response = await page.goto(route);
+    const headers = response?.headers() ?? {};
+
+    expect(headers["cache-control"]).toContain("no-store");
+    expect(headers["x-robots-tag"]).toContain("noindex");
+    expect(headers["content-security-policy"]).not.toContain("vercel");
+    await expect(page.locator('meta[name="robots"]')).toHaveAttribute(
+      "content",
+      /noindex/i,
+    );
+    await expect(page.locator('script[src*="/_vercel/"]')).toHaveCount(0);
+  }
+});
+
+test("robots excludes private route roots", async ({ page }) => {
+  const response = await page.goto("/robots.txt");
+  const robots = await page.locator("body").innerText();
+
+  expect(response?.status()).toBe(200);
+  expect(robots).toContain("Disallow: /admin");
+  expect(robots).toContain("Disallow: /proposals");
 });
 
 test("home route renders only a generic private-link prompt", async ({
@@ -113,6 +177,11 @@ test("correct admin passcode opens the project list", async ({ page }) => {
     page.locator("article").filter({ hasText: "Marl & Stone" }),
   ).toBeVisible();
   await expect(page.getByRole("link", { name: /view json/i })).toBeVisible();
+  await expect(page.locator('script[src*="/_vercel/"]')).toHaveCount(0);
+  await expect(page.locator('meta[name="robots"]')).toHaveAttribute(
+    "content",
+    /noindex/i,
+  );
 });
 
 test("admin JSON viewer shows canonical proposal content", async ({ page }) => {
@@ -154,6 +223,11 @@ test("correct password unlocks the demo proposal", async ({ page }) => {
     page.getByRole("heading", { name: "Marl & Stone" }),
   ).toBeVisible();
   await expect(page.getByTestId("proposal-folio")).toHaveText("01 / 13");
+  await expect(page.locator('script[src*="/_vercel/"]')).toHaveCount(0);
+  await expect(page.locator('meta[name="robots"]')).toHaveAttribute(
+    "content",
+    /noindex/i,
+  );
 });
 
 test("next and previous controls move through proposal slides", async ({

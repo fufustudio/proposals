@@ -12,8 +12,11 @@ real proposal copy and design assets are brought in from Figma or other sources.
 - `/` - proposal entry/index scaffold.
 - `/proposals/[slug]/access` - password entry.
 - `/proposals/[slug]` - protected proposal reader.
+- `/admin/access` - admin passcode entry.
+- `/admin` and `/admin/proposals/[slug]` - protected proposal utilities.
 - `/api/proposal-access` - form handler that validates proposal passwords and
   sets a signed HttpOnly access cookie.
+- `/api/admin-access` and `/api/admin-logout` - admin session handlers.
 
 ## Environment
 
@@ -21,7 +24,10 @@ real proposal copy and design assets are brought in from Figma or other sources.
 NEXT_PUBLIC_SITE_URL=http://localhost:3000
 PROPOSAL_ACCESS_CODES={"sample-proposal":"demo"}
 PROPOSAL_SESSION_SECRET=replace-with-a-long-random-secret
+ADMIN_ACCESS_CODE=admin-demo
+ADMIN_SESSION_SECRET=replace-with-a-long-random-admin-secret
 GOOGLE_SITE_VERIFICATION=
+NEXT_PUBLIC_VERCEL_ANALYTICS_ENABLED=true
 ```
 
 Development and test runs can use the built-in sample proposal fallback when
@@ -31,8 +37,12 @@ proposal access variables are blank. Production must configure real values.
 
 ```bash
 npm run dev
-npm run verify:working
+npm run verify
 ```
 
-Use `npm run verify:handoff` when browser checks should run against the
-production build.
+Use `npm run verify:proposal` for the complete scaffold gate. Run
+`npm run verify:handoff` with launch-ready environment variables when browser
+checks should run against the production build.
+
+The production build gate also scans `.next/static/chunks` to ensure proposal
+fixture identity and copy remain server-only.

@@ -1,9 +1,7 @@
-import {
-  DisclosureItem,
-  DisclosureList,
-} from "@/components/ui/disclosure-list";
-import { buttonClasses } from "@/components/ui/button";
-import type { ProposalBlock } from "@/features/proposals";
+import { DisclosureItem, DisclosureList } from "@/components/disclosure-list";
+import { buttonClasses } from "@/components/button";
+import { Heading } from "@/components/heading";
+import type { ProposalBlock } from "@/features/proposals/types";
 import styles from "./styles.module.css";
 
 export function ProposalSlideBlocks({
@@ -48,7 +46,9 @@ function ProposalSlideBlock({
           </div>
           <div className={styles.coverTitle}>
             <span>{block.preparedFor}</span>
-            <h1 id={headingId}>{block.title}</h1>
+            <Heading as="h1" tone="inherit" id={headingId}>
+              {block.title}
+            </Heading>
           </div>
           <div className={styles.coverBottom}>
             <p>{block.tagline}</p>
@@ -84,7 +84,9 @@ function ProposalSlideBlock({
           {block.items.map((item, index) => (
             <article key={item.title} className={styles.numberedRow}>
               <span>{String(index + 1).padStart(2, "0")}</span>
-              <h3>{item.title}</h3>
+              <Heading as="h3" tone="inherit">
+                {item.title}
+              </Heading>
               <p>{item.body}</p>
             </article>
           ))}
@@ -97,7 +99,9 @@ function ProposalSlideBlock({
           {block.items.map((item) => (
             <article key={item.title} className={styles.pillar}>
               {item.kicker ? <span>{item.kicker}</span> : null}
-              <h3>{item.title}</h3>
+              <Heading as="h3" tone="inherit">
+                {item.title}
+              </Heading>
               {item.body ? <p>{item.body}</p> : null}
             </article>
           ))}
@@ -108,7 +112,9 @@ function ProposalSlideBlock({
         <div className={styles.sitemap}>
           {block.columns.map((column) => (
             <article key={column.title}>
-              <h3>{column.title}</h3>
+              <Heading as="h3" tone="inherit">
+                {column.title}
+              </Heading>
               <ul>
                 {column.items.map((item) => (
                   <li key={item}>{item}</li>
@@ -124,7 +130,9 @@ function ProposalSlideBlock({
           {block.items.map((item, index) => (
             <article key={item.title}>
               <span>{String(index + 1).padStart(2, "0")}</span>
-              <h3>{item.title}</h3>
+              <Heading as="h3" tone="inherit">
+                {item.title}
+              </Heading>
               <p>{item.body}</p>
             </article>
           ))}
@@ -142,7 +150,9 @@ function ProposalSlideBlock({
               {item.kicker ? (
                 <span className={styles.kicker}>{item.kicker}</span>
               ) : null}
-              <h3>{item.label}</h3>
+              <Heading as="h3" tone="inherit">
+                {item.label}
+              </Heading>
               {item.detail ? <p>{item.detail}</p> : null}
               {item.milestone ? <strong>{item.milestone}</strong> : null}
             </article>
@@ -153,7 +163,12 @@ function ProposalSlideBlock({
       return (
         <DisclosureList className={styles.disclosures}>
           {block.items.map((item) => (
-            <DisclosureItem key={item.label} title={item.label}>
+            <DisclosureItem
+              key={item.label}
+              title={item.label}
+              titleAs="h3"
+              titleSize="item"
+            >
               {item.detail ? <p>{item.detail}</p> : null}
             </DisclosureItem>
           ))}
@@ -187,7 +202,9 @@ function ProposalSlideBlock({
                   <span className={styles.recommended}>Recommended</span>
                 ) : null}
                 <span className={styles.optionLabel}>{item.label}</span>
-                <h3>{item.title}</h3>
+                <Heading as="h3" tone="inherit">
+                  {item.title}
+                </Heading>
                 <p>{item.body}</p>
                 <strong>{item.price}</strong>
                 {item.note ? <small>{item.note}</small> : null}
@@ -210,7 +227,9 @@ function ProposalSlideBlock({
           {block.items.map((item) => (
             <article key={item.title}>
               <div>
-                <h3>{item.title}</h3>
+                <Heading as="h3" tone="inherit">
+                  {item.title}
+                </Heading>
                 <p>{item.body}</p>
               </div>
               <strong>{item.price}</strong>
@@ -239,7 +258,9 @@ function ProposalSlideBlock({
           {block.items.map((item, index) => (
             <article key={item.title}>
               <span>{String(index + 1).padStart(2, "0")}</span>
-              <h3>{item.title}</h3>
+              <Heading as="h3" tone="inherit">
+                {item.title}
+              </Heading>
               <p>{item.body}</p>
             </article>
           ))}

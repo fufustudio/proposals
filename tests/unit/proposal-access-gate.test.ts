@@ -23,6 +23,8 @@ describe("proposal access proxy gate", () => {
     expect(response.headers.get("location")).toBe(
       "https://example.com/proposals/sample-proposal/access?next=%2Fproposals%2Fsample-proposal%3Fsection%3Dscope",
     );
+    expect(response.headers.get("cache-control")).toContain("no-store");
+    expect(response.headers.get("x-robots-tag")).toContain("noindex");
   });
 
   it("allows proposal access pages through", () => {
@@ -31,6 +33,8 @@ describe("proposal access proxy gate", () => {
     );
 
     expect(response.headers.get("x-middleware-next")).toBe("1");
+    expect(response.headers.get("cache-control")).toContain("no-store");
+    expect(response.headers.get("x-robots-tag")).toContain("noindex");
   });
 
   it("allows unknown proposal slugs through safely", () => {

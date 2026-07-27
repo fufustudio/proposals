@@ -1,0 +1,29 @@
+.root {
+  font-size: var(--font-size-label);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-body);
+  letter-spacing: var(--letter-spacing-label-wide);
+  text-transform: uppercase;
+}
+
+.sans {
+  font-family: var(--font-sans), system-ui, sans-serif;
+}
+
+.mono {
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-weight: var(--font-weight-medium);
+  letter-spacing: var(--letter-spacing-label);
+}
+
+.toneAccent {
+  color: var(--color-accent);
+}
+
+.toneInherit {
+  color: inherit;
+}
+
+.toneLight {
+  color: var(--color-light);
+}

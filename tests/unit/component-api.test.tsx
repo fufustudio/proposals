@@ -56,9 +56,9 @@ vi.mock("@vercel/analytics", () => ({
   track: vi.fn(),
 }));
 
-import { CardGridSection } from "@/components/sections/card-grid-section";
-import { FormField } from "@/components/ui/form-field";
-import { ImageFrame } from "@/components/ui/image-frame";
+import { CardGridSection } from "@/components/card-grid-section";
+import { FormField } from "@/components/form-field";
+import { ImageFrame } from "@/components/image-frame";
 
 describe("component API polish", () => {
   it("renders card grid links with shared link behavior", () => {
@@ -75,7 +75,13 @@ describe("component API polish", () => {
             href: "https://example.com",
             actionLabel: "Visit",
             external: true,
-            event: "card_click",
+            analytics: {
+              name: "cta_clicked",
+              properties: {
+                cta_id: "public_home",
+                placement: "public",
+              },
+            },
             ariaLabel: "Visit external example",
           },
         ]}

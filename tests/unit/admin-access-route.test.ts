@@ -31,6 +31,10 @@ describe("POST /api/admin-access", () => {
     );
     expect(res.headers.get("set-cookie")).toContain("Path=/admin");
     expect(res.headers.get("set-cookie")).toContain("HttpOnly");
+    expect(res.headers.get("set-cookie")).toContain("SameSite=lax");
+    expect(res.headers.get("set-cookie")).toContain("Secure");
+    expect(res.headers.get("cache-control")).toContain("no-store");
+    expect(res.headers.get("x-robots-tag")).toContain("noindex");
   });
 
   it("returns to the access page for invalid codes", async () => {
@@ -84,6 +88,9 @@ describe("POST /api/admin-logout", () => {
     );
     expect(res.headers.get("set-cookie")).toContain("Max-Age=0");
     expect(res.headers.get("set-cookie")).toContain("Path=/admin");
+    expect(res.headers.get("set-cookie")).toContain("SameSite=lax");
+    expect(res.headers.get("set-cookie")).toContain("Secure");
+    expect(res.headers.get("cache-control")).toContain("no-store");
   });
 });
 

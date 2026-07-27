@@ -37,8 +37,8 @@ fixture with a verified private proposal experience.
 ## Component Plan
 
 - Map design frames to existing primitives first: `Section`, `Container`,
-  `PageHeader`, `SectionHeading`, `TextLink`, `Button`, `ButtonLink`,
-  `ActionGroup`, grid helpers, and CSS Modules.
+  `Heading`, `Text`, `Eyebrow`, `PageHeader`, `SectionHeading`, `TextLink`,
+  `Button`, `ButtonLink`, `ActionGroup`, grid helpers, and CSS Modules.
 - Use `docs/component-registry.md` to decide whether a pattern should be shared
   or route-local.
 - Add a shared component only when multiple proposal surfaces need it or the

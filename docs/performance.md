@@ -27,3 +27,7 @@ npm run verify:release
 
 Use Lighthouse results as a signal, then confirm real proposal pages manually on
 mobile and desktop.
+
+The release gate fails below 0.85 performance, 0.9 best practices, or 0.95
+accessibility/SEO. Treat 0.95 performance as the target without allowing normal
+measurement variance to make the release gate unreliable.

@@ -1,0 +1,17 @@
+.content {
+  display: grid;
+  justify-items: start;
+  gap: var(--space-5);
+}
+
+.heading {
+  max-width: 14ch;
+}
+
+.message {
+  max-width: 54ch;
+}
+
+.action {
+  margin-top: var(--space-2);
+}

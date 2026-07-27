@@ -1,0 +1,41 @@
+.root {
+  display: block;
+}
+
+.compact {
+  padding-block: var(--space-section-compact);
+}
+
+.default {
+  padding-block: var(--space-section-default);
+}
+
+.page {
+  padding-block-start: var(--space-page-start);
+  padding-block-end: var(--space-page-end);
+}
+
+.spacious {
+  padding-block: var(--space-section-spacious);
+}
+
+.toneDefault {
+  background: transparent;
+}
+
+.raised {
+  background-color: var(--color-surface);
+}
+
+.muted {
+  background-color: var(--color-section-muted);
+}
+
+.feature {
+  background-color: var(--color-section-feature);
+}
+
+.contrast {
+  background-color: var(--color-fg);
+  color: var(--color-bg);
+}

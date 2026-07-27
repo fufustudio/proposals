@@ -1,7 +1,9 @@
 import Link, { type LinkProps } from "next/link";
-import { buttonClasses } from "@/components/ui/button";
-import type { Proposal } from "@/features/proposals";
-import { proposalPath } from "@/features/proposals";
+import { buttonClasses } from "@/components/button";
+import { Eyebrow } from "@/components/eyebrow";
+import { Heading } from "@/components/heading";
+import { proposalPath } from "@/features/proposals/paths";
+import type { Proposal } from "@/features/proposals/types";
 import { adminProposalEditorPath } from "@/server/admin-access";
 import styles from "./styles.module.css";
 
@@ -14,8 +16,8 @@ export function AdminDashboard({
     <main className={styles.root}>
       <header className={styles.header}>
         <div>
-          <p className="eyebrow">Fufu Admin</p>
-          <h1>Proposal projects</h1>
+          <Eyebrow>Fufu Admin</Eyebrow>
+          <Heading as="h1">Proposal projects</Heading>
         </div>
         <form action="/api/admin-logout" method="post">
           <button
@@ -29,7 +31,9 @@ export function AdminDashboard({
 
       <section className={styles.panel} aria-labelledby="proposal-list-title">
         <div className={styles.panelHeader}>
-          <h2 id="proposal-list-title">Projects</h2>
+          <Heading as="h2" size="module" id="proposal-list-title">
+            Projects
+          </Heading>
           <span>{proposals.length}</span>
         </div>
 
@@ -38,7 +42,7 @@ export function AdminDashboard({
             <article key={proposal.slug} className={styles.row}>
               <div className={styles.summary}>
                 <span className={styles.client}>{proposal.clientLabel}</span>
-                <h3>{proposal.title}</h3>
+                <Heading as="h3">{proposal.title}</Heading>
                 <dl className={styles.meta}>
                   <div>
                     <dt>Updated</dt>

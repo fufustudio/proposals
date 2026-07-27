@@ -1,0 +1,20 @@
+.content {
+  margin-inline: auto;
+  max-width: 620px;
+  text-align: center;
+}
+
+.heading {
+  margin-top: 1rem;
+}
+
+.message {
+  margin: 1.25rem auto 0;
+  max-width: 520px;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+.cta {
+  margin-top: 2rem;
+}

@@ -1,1 +1,1 @@
-npx lint-staged
+npm exec --offline -- lint-staged --concurrent false

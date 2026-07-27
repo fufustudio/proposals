@@ -14,9 +14,9 @@ const status = git(["status", "--porcelain=v1", "--", ...GENERATED_PATTERNS]);
 if (status) {
   console.error(
     [
-      "Generated files are out of date.",
+      "Generated output differs from the committed files.",
       "",
-      "Run `npm run css-types`, then commit the generated output.",
+      "Review the generated changes, then commit them when they are expected.",
       "",
       status,
     ].join("\n"),

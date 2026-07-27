@@ -1,6 +1,12 @@
-import { createHmac, timingSafeEqual } from "node:crypto";
+import "server-only";
+
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
+import {
+  createSignedSession,
+  timingSafeStringEqual,
+  verifySignedSession,
+} from "@/server/signed-session";
 
 export type AdminAccessConfig = {
   code?: string;
@@ -18,7 +24,7 @@ type EnvLike = {
 
 const demoAdminCode = "admin-demo";
 const demoAdminSessionSecret = "development-only-fufu-admin-session-secret";
-const tokenVersion = "v1";
+const sessionPurpose = "proposal-admin";
 
 export const adminPath = "/admin";
 export const adminAccessPath = "/admin/access";
@@ -73,14 +79,13 @@ export function createAdminAccessCookieValue({
     throw new Error("Admin access is missing ADMIN_SESSION_SECRET.");
   }
 
-  const expiresAt = now + adminAccessMaxAge * 1000;
-  const payload = Buffer.from(
-    JSON.stringify({ role: "admin", expiresAt }),
-    "utf8",
-  ).toString("base64url");
-  const signature = signPayload(payload, config.sessionSecret);
-
-  return `${tokenVersion}.${payload}.${signature}`;
+  return createSignedSession({
+    purpose: sessionPurpose,
+    data: { role: "admin" },
+    secret: config.sessionSecret,
+    maxAge: adminAccessMaxAge,
+    now,
+  });
 }
 
 export function verifyAdminAccessCookieValue({
@@ -92,35 +97,20 @@ export function verifyAdminAccessCookieValue({
   config?: AdminAccessConfig;
   now?: number;
 }) {
-  if (!value || !config.sessionSecret) return false;
-
-  const [version, payload, signature, ...rest] = value.split(".");
-  if (version !== tokenVersion || !payload || !signature || rest.length > 0) {
-    return false;
-  }
-
-  if (
-    !timingSafeStringEqual(
-      signature,
-      signPayload(payload, config.sessionSecret),
-    )
-  ) {
-    return false;
-  }
-
-  try {
-    const decoded = JSON.parse(
-      Buffer.from(payload, "base64url").toString("utf8"),
-    ) as { role?: unknown; expiresAt?: unknown };
-
-    return (
-      decoded.role === "admin" &&
-      typeof decoded.expiresAt === "number" &&
-      decoded.expiresAt > now
-    );
-  } catch {
-    return false;
-  }
+  return Boolean(
+    verifySignedSession({
+      value,
+      purpose: sessionPurpose,
+      secret: config.sessionSecret,
+      now,
+      validateData: (data): data is { role: "admin" } =>
+        Boolean(
+          data &&
+          typeof data === "object" &&
+          (data as { role?: unknown }).role === "admin",
+        ),
+    }),
+  );
 }
 
 export function safeAdminNextPath(next: string) {
@@ -158,17 +148,4 @@ export async function requireAdminAccess(nextPath = adminPath) {
       )}`,
     );
   }
-}
-
-function signPayload(payload: string, secret: string) {
-  return createHmac("sha256", secret).update(payload).digest("base64url");
-}
-
-function timingSafeStringEqual(left: string, right: string) {
-  const leftBuffer = Buffer.from(left);
-  const rightBuffer = Buffer.from(right);
-
-  if (leftBuffer.length !== rightBuffer.length) return false;
-
-  return timingSafeEqual(leftBuffer, rightBuffer);
 }

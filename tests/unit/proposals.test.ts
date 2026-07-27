@@ -1,6 +1,10 @@
 import { describe, expect, it } from "vitest";
 
 import {
+  createAdminAccessCookieValue,
+  getAdminAccessConfig,
+} from "@/server/admin-access";
+import {
   createProposalAccessCookieValue,
   getProposalAccessConfig,
   parseProposalAccessCodes,
@@ -11,8 +15,8 @@ import proposalsJson from "@/content/proposals.json";
 import {
   getAllProposals,
   getProposalBySlug,
-  validateProposals,
-} from "@/features/proposals";
+} from "@/features/proposals/repository";
+import { validateProposals } from "@/features/proposals/validation";
 
 describe("proposal content helpers", () => {
   it("finds the demo proposal by slug", () => {
@@ -144,6 +148,34 @@ describe("proposal access helpers", () => {
         value,
         config,
         now: now + 60 * 60 * 24 * 15 * 1000,
+      }),
+    ).toBe(false);
+  });
+
+  it("does not accept an admin session as a proposal session", () => {
+    const secret = "shared-secret-for-audience-test";
+    const adminValue = createAdminAccessCookieValue({
+      config: getAdminAccessConfig(
+        {
+          ADMIN_ACCESS_CODE: "admin-code",
+          ADMIN_SESSION_SECRET: secret,
+        },
+        "test",
+      ),
+    });
+    const proposalConfig = getProposalAccessConfig(
+      {
+        PROPOSAL_ACCESS_CODES: '{"sample-proposal":"demo"}',
+        PROPOSAL_SESSION_SECRET: secret,
+      },
+      "test",
+    );
+
+    expect(
+      verifyProposalAccessCookieValue({
+        slug: "sample-proposal",
+        value: adminValue,
+        config: proposalConfig,
       }),
     ).toBe(false);
   });

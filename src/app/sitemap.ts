@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next";
-import { SITE_URL } from "@/lib/site-defaults";
+import { SITE_URL } from "@/config/site";
 
 const staticRoutes = [""] as const;
 

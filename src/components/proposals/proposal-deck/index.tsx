@@ -12,7 +12,9 @@ import {
 import type {
   Proposal,
   ProposalSlide as ProposalSlideData,
-} from "@/features/proposals";
+} from "@/features/proposals/types";
+import { Eyebrow } from "@/components/eyebrow";
+import { Heading } from "@/components/heading";
 import { ProposalSlideBlocks } from "@/components/proposals/proposal-slide-blocks";
 import styles from "./styles.module.css";
 
@@ -346,13 +348,15 @@ function SlideComposition({
   index: number;
   children: ReactNode;
 }) {
-  const Heading = index === 0 ? "h1" : "h2";
+  const headingAs = index === 0 ? "h1" : "h2";
 
   return (
     <div className={styles.composition} data-layout={slide.layout}>
       <div className={styles.copy}>
-        {slide.eyebrow ? <p className="eyebrow">{slide.eyebrow}</p> : null}
-        <Heading id={headingId}>{slide.heading}</Heading>
+        {slide.eyebrow ? <Eyebrow>{slide.eyebrow}</Eyebrow> : null}
+        <Heading as={headingAs} id={headingId}>
+          {slide.heading}
+        </Heading>
         {slide.intro ? <p className={styles.intro}>{slide.intro}</p> : null}
         {slide.note ? <p className={styles.note}>{slide.note}</p> : null}
       </div>

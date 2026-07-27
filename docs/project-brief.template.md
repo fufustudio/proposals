@@ -13,12 +13,15 @@ values blank. Do not paste secret values into shared docs.
 
 ## Environment Variables
 
-| Field                      | Value                                         |
-| -------------------------- | --------------------------------------------- |
-| `NEXT_PUBLIC_SITE_URL`     | production domain, or `http://localhost:3000` |
-| `PROPOSAL_ACCESS_CODES`    | configured outside docs                       |
-| `PROPOSAL_SESSION_SECRET`  | configured outside docs                       |
-| `GOOGLE_SITE_VERIFICATION` | optional Search Console token                 |
+| Field                                  | Value                                         |
+| -------------------------------------- | --------------------------------------------- |
+| `NEXT_PUBLIC_SITE_URL`                 | production domain, or `http://localhost:3000` |
+| `PROPOSAL_ACCESS_CODES`                | configured outside docs                       |
+| `PROPOSAL_SESSION_SECRET`              | configured outside docs                       |
+| `ADMIN_ACCESS_CODE`                    | configured outside docs                       |
+| `ADMIN_SESSION_SECRET`                 | configured outside docs                       |
+| `NEXT_PUBLIC_VERCEL_ANALYTICS_ENABLED` | public-route analytics switch                 |
+| `GOOGLE_SITE_VERIFICATION`             | optional Search Console token                 |
 
 The design/copy source is authoritative for proposal copy, palette, typography,
 assets, layout, and responsive behavior.

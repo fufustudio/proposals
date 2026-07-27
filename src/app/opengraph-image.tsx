@@ -1,6 +1,6 @@
 import { ImageResponse } from "next/og";
-import { theme } from "@/lib/theme";
-import { SITE_DEFAULT_DESCRIPTION, SITE_NAME } from "@/lib/site-defaults";
+import { theme } from "@/config/theme";
+import { SITE_DEFAULT_DESCRIPTION, SITE_NAME } from "@/config/site";
 
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
